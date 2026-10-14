@@ -1,6 +1,15 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu": { "type": "menu", "settings": { "heading": "Shop", "menu": "footer" } }
+      },
+      "block_order": ["menu"],
+      "settings": { "color_scheme": "dark" }
+    }
+  },
+  "order": ["footer"]
 }
