@@ -22,7 +22,7 @@
   assert(document.activeElement?.dataset.focusId?.startsWith('inc-'), 'Focus stays on the increase control');
   assert(document.querySelector('[data-cart-count]').textContent.trim() === '2', 'Header count follows');
   getPage().querySelector('a[data-focus-id^="remove-"]').click();
-  await waitFor(() => !getPage().querySelector('[data-cart-line]'), 'Removing the line empties the cart');
+  await waitFor(() => !getPage().querySelector('[data-cart-key]'), 'Removing the line empties the cart');
   assert(document.querySelector('[data-cart-count]').hidden, 'Header count hides when the cart is empty');
   return 'cart page ok';
 })();

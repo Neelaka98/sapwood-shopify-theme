@@ -80,7 +80,12 @@ function openDrawer(from: HTMLElement | null) {
   drawer.showModal();
 }
 
+const addingForms = new WeakSet<HTMLFormElement>();
+const changingSections = new WeakSet<Element>();
+
 async function addToCart(form: HTMLFormElement) {
+  if (addingForms.has(form)) return;
+  addingForms.add(form);
   const error = form.querySelector<HTMLElement>('[data-cart-error]');
   const submit = form.querySelector<HTMLButtonElement>('[type="submit"]');
   if (error) error.textContent = '';
@@ -94,14 +99,18 @@ async function addToCart(form: HTMLFormElement) {
     if (error) error.textContent = messageFor(reason);
   } finally {
     submit?.removeAttribute('aria-busy');
+    addingForms.delete(form);
   }
 }
 
 async function changeLine(link: HTMLAnchorElement) {
   const scope = link.closest('.shopify-section');
+  if (scope && changingSections.has(scope)) return;
+  if (scope) changingSections.add(scope);
   try {
+    // The line key, not its index: after a change the next item moves up to that index, so a second click would hit it.
     const data = await post(themeData().routes.cartChange, {
-      line: Number(link.dataset.cartLine),
+      id: link.dataset.cartKey,
       quantity: Number(link.dataset.cartQuantity),
     });
     renderSections(data.sections);
@@ -109,6 +118,8 @@ async function changeLine(link: HTMLAnchorElement) {
   } catch (reason) {
     const error = scope?.querySelector<HTMLElement>('[data-cart-error]');
     if (error) error.textContent = messageFor(reason);
+  } finally {
+    if (scope) changingSections.delete(scope);
   }
 }
 
@@ -128,7 +139,7 @@ export function initCart() {
       drawer?.close();
       return;
     }
-    const line = target.closest<HTMLAnchorElement>('a[data-cart-line]');
+    const line = target.closest<HTMLAnchorElement>('a[data-cart-key]');
     if (line) {
       event.preventDefault();
       void changeLine(line);

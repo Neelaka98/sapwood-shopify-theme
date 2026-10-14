@@ -33,7 +33,7 @@
   form.querySelector('[data-quantity-input]').value = '2';
   form.requestSubmit();
   await waitFor(() => drawer.open, 'Adding opens the drawer');
-  await waitFor(() => drawer.querySelector('[data-cart-line]'), 'The drawer lists the line');
+  await waitFor(() => drawer.querySelector('[data-cart-key]'), 'The drawer lists the line');
   assert(error.textContent.trim() === '', 'A successful add clears the old error');
   assert(drawer.textContent.includes(onSale.options[0]), 'The drawer line names the variant');
   assert(drawer.querySelector('[role="group"] .tabular').textContent.trim() === '2', 'The drawer line has quantity 2');

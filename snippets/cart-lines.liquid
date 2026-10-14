@@ -38,7 +38,7 @@
         <a
           href="{{ item.url_to_remove }}"
           class="-ml-1 inline-flex min-h-11 items-center px-1 text-sm font-semibold text-heading underline underline-offset-4 hover:text-ink"
-          data-cart-line="{{ forloop.index }}"
+          data-cart-key="{{ item.key }}"
           data-cart-quantity="0"
           data-focus-id="remove-{{ item.key }}"
         >
@@ -50,7 +50,7 @@
         <a
           href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ decrease_quantity }}"
           class="icon-btn border border-line"
-          data-cart-line="{{ forloop.index }}"
+          data-cart-key="{{ item.key }}"
           data-cart-quantity="{{ decrease_quantity }}"
           data-focus-id="dec-{{ item.key }}"
         >
@@ -61,7 +61,7 @@
         <a
           href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ increase_quantity }}"
           class="icon-btn border border-line"
-          data-cart-line="{{ forloop.index }}"
+          data-cart-key="{{ item.key }}"
           data-cart-quantity="{{ increase_quantity }}"
           data-focus-id="inc-{{ item.key }}"
         >
