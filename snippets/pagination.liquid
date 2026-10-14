@@ -1,0 +1,30 @@
+{% doc %}
+  Page links for a paginated list. Renders nothing for a single page.
+
+  @param {object} paginate - The paginate object from the enclosing paginate tag
+{% enddoc %}
+{%- if paginate.pages > 1 -%}
+  <nav class="mt-12 flex items-center justify-center gap-2" aria-label="{{ 'general.pagination' | t }}">
+    {%- if paginate.previous -%}
+      <a href="{{ paginate.previous.url }}" class="icon-btn border border-line">
+        {% render 'icon', name: 'chevron-left' %}
+        <span class="sr-only">{{ 'general.previous_page' | t }}</span>
+      </a>
+    {%- endif -%}
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+        <a href="{{ part.url }}" class="icon-btn">{{ part.title }}</a>
+      {%- elsif part.title == paginate.current_page -%}
+        <span class="icon-btn bg-tint font-bold" aria-current="page">{{ part.title }}</span>
+      {%- else -%}
+        <span class="icon-btn">{{ part.title }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if paginate.next -%}
+      <a href="{{ paginate.next.url }}" class="icon-btn border border-line">
+        {% render 'icon', name: 'chevron-right' %}
+        <span class="sr-only">{{ 'general.next_page' | t }}</span>
+      </a>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

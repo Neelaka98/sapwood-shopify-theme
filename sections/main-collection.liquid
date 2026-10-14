@@ -1,0 +1,30 @@
+{%- paginate collection.products by section.settings.products_per_page -%}
+  <div class="color-{{ section.settings.color_scheme }} py-12 lg:py-16">
+    <div class="wrap">
+      <h1 class="text-section">{{ collection.title | escape }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="rte mt-4 max-w-prose">{{ collection.description }}</div>
+      {%- endif -%}
+      {%- if collection.products.size > 0 -%}
+        <ul class="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-6" role="list">
+          {%- for product in collection.products -%}
+            <li>{% render 'product-card', product: product %}</li>
+          {%- endfor -%}
+        </ul>
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <p class="mt-10">{{ 'collections.empty' | t }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main_collection.name",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "t:sections.main_collection.products_per_page", "min": 8, "max": 48, "step": 4, "default": 16 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{%- paginate search.results by 24 -%}
+  <div class="color-{{ section.settings.color_scheme }} py-12 lg:py-16">
+    <div class="wrap">
+      <h1 class="text-section">{{ 'search.title' | t }}</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="mt-6 flex max-w-2xl gap-3">
+        <label for="SearchPageInput" class="sr-only">{{ 'general.search_label' | t }}</label>
+        <input
+          id="SearchPageInput"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          class="h-12 min-w-0 flex-1 border-2 border-ink bg-ground px-3 text-lg text-ink"
+        >
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="btn btn-primary">{{ 'search.submit' | t }}</button>
+      </form>
+      {%- if search.performed -%}
+        {%- assign terms = search.terms | escape -%}
+        {%- if search.results_count > 0 -%}
+          <p class="mt-6 text-muted" role="status">
+            {{ 'search.results_for' | t: count: search.results_count, terms: terms }}
+          </p>
+          <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-6" role="list">
+            {%- for item in search.results -%}
+              <li>
+                {%- if item.object_type == 'product' -%}
+                  {% render 'product-card', product: item %}
+                {%- else -%}
+                  <a href="{{ item.url }}" class="text-card underline-offset-4 hover:underline">{{ item.title | escape }}</a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {% render 'pagination', paginate: paginate %}
+        {%- else -%}
+          <p class="mt-6" role="status">{{ 'search.no_results' | t: terms: terms }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main_search.name",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}
