@@ -1,0 +1,158 @@
+<header
+  class="color-{{ section.settings.color_scheme }} relative border-b border-hairline"
+  {% if section.settings.sticky %}
+    data-header-sticky
+  {% endif %}
+  data-header
+>
+  <div class="wrap flex h-16 items-stretch gap-3 lg:h-[4.75rem] lg:gap-5">
+    <a
+      href="{{ routes.root_url }}"
+      class="flex shrink-0 items-center gap-2.5"
+      style="--logo-width: {{ settings.logo_width }}px"
+    >
+      {%- if settings.logo != blank -%}
+        {%- liquid
+          assign logo_alt = shop.name
+          if section.settings.show_shop_name
+            assign logo_alt = ''
+          endif
+          assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | round
+        -%}
+        {{
+          settings.logo
+          | image_url: width: 480
+          | image_tag:
+            width: settings.logo_width,
+            height: logo_height,
+            alt: logo_alt,
+            loading: 'eager',
+            widths: '120, 240, 360, 480',
+            sizes: '240px',
+            class: 'header-logo'
+        }}
+      {%- endif -%}
+      {%- if settings.logo == blank or section.settings.show_shop_name -%}
+        <span class="font-display text-[1.625rem] font-bold tracking-[-0.045em] whitespace-nowrap lg:text-[2rem]">
+          {{- shop.name | escape -}}
+        </span>
+      {%- endif -%}
+    </a>
+
+    <div id="HeaderMenu" class="header-menu" data-menu>
+      <nav aria-label="{{ 'general.main_menu' | t }}" class="lg:mx-auto lg:flex">
+        <ul class="flex flex-col lg:flex-row lg:gap-2" role="list">
+          {%- for link in section.settings.menu.links -%}
+            <li class="lg:relative lg:flex">
+              {%- if link.links.size > 0 -%}
+                <button
+                  type="button"
+                  class="header-link gap-1.5"
+                  aria-expanded="false"
+                  aria-controls="HeaderSubmenu-{{ forloop.index }}"
+                  data-disclosure
+                >
+                  {{ link.title | escape }}
+                  {% render 'icon', name: 'chevron-down', size: 12, class: 'disclosure-chevron' %}
+                </button>
+                <ul id="HeaderSubmenu-{{ forloop.index }}" class="header-submenu" role="list" hidden>
+                  {%- for child in link.links -%}
+                    <li>
+                      <a
+                        href="{{ child.url }}"
+                        class="header-sublink"
+                        {% if child.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{- child.title | escape -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <a
+                  href="{{ link.url }}"
+                  class="header-link"
+                  {% if link.current %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+      {%- render 'localization-form', form_id: 'HeaderLocalization' -%}
+    </div>
+
+    <div class="ml-auto flex items-center lg:ml-0">
+      <button type="button" class="icon-btn" aria-expanded="false" aria-controls="HeaderSearch" data-disclosure>
+        {% render 'icon', name: 'search' %}
+        <span class="sr-only">{{ 'general.search_label' | t }}</span>
+      </button>
+      <a href="{{ routes.cart_url }}" class="icon-btn relative" data-cart-open>
+        {% render 'icon', name: 'bag' %}
+        <span class="sr-only" data-cart-label>{{ 'cart.open' | t: count: cart.item_count }}</span>
+        <span
+          class="cart-count"
+          aria-hidden="true"
+          data-cart-count
+          {% if cart.item_count == 0 %}
+            hidden
+          {% endif %}
+        >
+          {{- cart.item_count -}}
+        </span>
+      </a>
+      <button
+        type="button"
+        class="icon-btn -mr-2 lg:hidden"
+        aria-expanded="false"
+        aria-controls="HeaderMenu"
+        data-menu-toggle
+      >
+        {% render 'icon', name: 'menu', class: 'menu-icon-open' %}
+        {% render 'icon', name: 'close', class: 'menu-icon-close' %}
+        <span class="sr-only">{{ 'general.menu' | t }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="HeaderSearch" class="header-search" hidden>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="wrap py-5">
+      <label for="HeaderSearchInput" class="sr-only">{{ 'general.search_label' | t }}</label>
+      <div class="relative mx-auto max-w-2xl">
+        <input
+          id="HeaderSearchInput"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'general.search' | t }}"
+          autocomplete="off"
+          enterkeyhint="search"
+          class="h-14 w-full border-2 border-ink bg-ground pl-12 pr-3 text-lg text-ink placeholder:text-muted"
+        >
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        {% render 'icon', name: 'search', class: 'pointer-events-none absolute left-4 top-1/2 -translate-y-1/2' %}
+      </div>
+    </form>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "t:sections.header.menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_shop_name", "label": "t:sections.header.show_shop_name", "default": true },
+    { "type": "checkbox", "id": "sticky", "label": "t:sections.header.sticky", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+{% doc %}
+  Country and language selectors. Renders nothing when the store sells to one country in one language.
+  Works without JavaScript through its Update button; header.ts hides the button and submits on change.
+
+  @param {string} form_id - Unique id for the form
+{% enddoc %}
+{%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+  {%- form 'localization', id: form_id, class: 'localization-form' -%}
+    {%- if localization.available_countries.size > 1 -%}
+      <div class="field">
+        <label for="{{ form_id }}-country">{{ 'localization.country' | t }}</label>
+        <select id="{{ form_id }}-country" name="country_code">
+          {%- for country in localization.available_countries -%}
+            <option
+              value="{{ country.iso_code }}"
+              {% if country.iso_code == localization.country.iso_code %}
+                selected
+              {% endif %}
+            >
+              {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+    {%- endif -%}
+    {%- if localization.available_languages.size > 1 -%}
+      <div class="field">
+        <label for="{{ form_id }}-language">{{ 'localization.language' | t }}</label>
+        <select id="{{ form_id }}-language" name="language_code">
+          {%- for language in localization.available_languages -%}
+            <option
+              value="{{ language.iso_code }}"
+              lang="{{ language.iso_code }}"
+              {% if language.iso_code == localization.language.iso_code %}
+                selected
+              {% endif %}
+            >
+              {{ language.endonym_name | capitalize }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+    {%- endif -%}
+    <button type="submit" class="btn btn-outline" data-localization-submit>{{ 'localization.update' | t }}</button>
+  {%- endform -%}
+{%- endif -%}

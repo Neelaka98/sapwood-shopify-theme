@@ -1,6 +1,16 @@
 {
   "type": "header",
   "name": "Header",
-  "sections": {},
-  "order": []
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "show_shop_name": true,
+        "sticky": true,
+        "color_scheme": "light"
+      }
+    }
+  },
+  "order": ["header"]
 }

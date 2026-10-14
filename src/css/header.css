@@ -1,0 +1,150 @@
+@layer components {
+  /* The section wrapper is the sticky element: a sticky header inside a wrapper of the same height would never stick. */
+  .header-section:has([data-header-sticky]) {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .header-logo {
+    width: var(--logo-width);
+    height: auto;
+  }
+
+  /* One set of links: a panel under the header below 64rem, an inline row above it. */
+  .header-menu {
+    display: none;
+  }
+  .header-menu[data-open] {
+    display: block;
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.5rem 1rem 2rem;
+    background: var(--scheme-ground);
+    border-bottom: 1px solid var(--scheme-hairline);
+  }
+  @media (max-width: 63.99rem) and (prefers-reduced-motion: no-preference) {
+    .header-menu[data-open] {
+      transition:
+        opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @starting-style {
+      .header-menu[data-open] {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+    }
+  }
+
+  .header-link {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-height: 3.5rem;
+    border-bottom: 1px solid var(--scheme-hairline);
+    font-family: var(--font-display);
+    font-size: 1.875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .header-link[aria-expanded='true'],
+  .header-link[aria-current='page'] {
+    background: var(--scheme-tint);
+  }
+  @media (hover: hover) {
+    .header-link:hover {
+      background: var(--scheme-tint);
+    }
+  }
+  .header-submenu {
+    padding-block: 0.5rem;
+  }
+  .header-sublink {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+  }
+  .header-sublink:hover,
+  .header-sublink[aria-current='page'] {
+    background: var(--scheme-tint);
+  }
+  .disclosure-chevron {
+    transition: transform 150ms ease;
+  }
+  [aria-expanded='true'] > .disclosure-chevron {
+    transform: rotate(180deg);
+  }
+
+  [data-menu-toggle] .menu-icon-close,
+  [data-menu-toggle][aria-expanded='true'] .menu-icon-open {
+    display: none;
+  }
+  [data-menu-toggle][aria-expanded='true'] .menu-icon-close {
+    display: block;
+  }
+
+  .header-search {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    background: var(--scheme-ground);
+    border-bottom: 2px solid var(--scheme-ink);
+  }
+
+  .localization-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    .header-menu,
+    .header-menu[data-open] {
+      display: contents;
+    }
+    .header-link {
+      width: auto;
+      min-height: 0;
+      border: 0;
+      padding-inline: 0.875rem;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: none;
+    }
+    .header-submenu {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      z-index: 10;
+      min-width: 14rem;
+      padding: 0.5rem;
+      background: var(--scheme-ground);
+      border: 2px solid var(--scheme-ink);
+    }
+    .localization-form {
+      align-self: center;
+      margin-top: 0;
+    }
+    /* Labels stay for screen readers; the selects' own text says what they are at this width. */
+    .localization-form label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .disclosure-chevron {
+      transition: none;
+    }
+  }
+}
