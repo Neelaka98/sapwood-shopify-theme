@@ -1,0 +1,5 @@
+node_modules/
+.shopify/
+.lighthouse/
+.env
+.DS_Store
