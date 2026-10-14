@@ -5,7 +5,7 @@
   {% endif %}
   data-header
 >
-  <div class="wrap flex h-16 items-stretch gap-3 lg:h-[4.75rem] lg:gap-5">
+  <div class="header-bar wrap flex min-h-16 items-stretch gap-3 lg:min-h-[4.75rem] lg:gap-5">
     <a
       href="{{ routes.root_url }}"
       class="flex shrink-0 items-center gap-2.5"
@@ -55,7 +55,7 @@
                   {{ link.title | escape }}
                   {% render 'icon', name: 'chevron-down', size: 12, class: 'disclosure-chevron' %}
                 </button>
-                <ul id="HeaderSubmenu-{{ forloop.index }}" class="header-submenu" role="list" hidden>
+                <ul id="HeaderSubmenu-{{ forloop.index }}" class="header-submenu" role="list">
                   {%- for child in link.links -%}
                     <li>
                       <a
@@ -89,10 +89,16 @@
     </div>
 
     <div class="ml-auto flex items-center lg:ml-0">
-      <button type="button" class="icon-btn" aria-expanded="false" aria-controls="HeaderSearch" data-disclosure>
+      <a
+        href="{{ routes.search_url }}"
+        class="icon-btn"
+        aria-expanded="false"
+        aria-controls="HeaderSearch"
+        data-disclosure
+      >
         {% render 'icon', name: 'search' %}
         <span class="sr-only">{{ 'general.search_label' | t }}</span>
-      </button>
+      </a>
       <a href="{{ routes.cart_url }}" class="icon-btn relative" data-cart-open>
         {% render 'icon', name: 'bag' %}
         <span class="sr-only" data-cart-label>{{ 'cart.open' | t: count: cart.item_count }}</span>
@@ -121,7 +127,7 @@
     </div>
   </div>
 
-  <div id="HeaderSearch" class="header-search" hidden>
+  <div id="HeaderSearch" class="header-search">
     <form action="{{ routes.search_url }}" method="get" role="search" class="wrap py-5">
       <label for="HeaderSearchInput" class="sr-only">{{ 'general.search_label' | t }}</label>
       <div class="relative mx-auto max-w-2xl">

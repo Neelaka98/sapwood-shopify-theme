@@ -65,6 +65,10 @@
     display: grid;
     gap: 1rem;
   }
+  /* The radios only drive product.ts; the noscript select picks the variant without JavaScript. */
+  .no-js [data-variant-picker] {
+    display: none;
+  }
   .product-options legend,
   .purchase-label {
     display: block;

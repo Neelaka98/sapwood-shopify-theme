@@ -10,24 +10,26 @@ const visibleFocusable = (root: HTMLElement) =>
 registerSection('[data-header]', (header, signal) => {
   const menuToggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = header.querySelector<HTMLElement>('[data-menu]');
-  const disclosures = [...header.querySelectorAll<HTMLButtonElement>('[data-disclosure]')];
+  const disclosures = [...header.querySelectorAll<HTMLElement>('[data-disclosure]')];
   const desktop = matchMedia('(min-width: 64rem)');
 
-  const panelFor = (button: HTMLButtonElement) => document.getElementById(button.getAttribute('aria-controls') ?? '');
+  const panelFor = (button: HTMLElement) => document.getElementById(button.getAttribute('aria-controls') ?? '');
   const openDisclosure = () => disclosures.find((button) => button.getAttribute('aria-expanded') === 'true');
 
-  function setDisclosure(button: HTMLButtonElement, open: boolean) {
+  function setDisclosure(button: HTMLElement, open: boolean) {
     button.setAttribute('aria-expanded', String(open));
     const panel = panelFor(button);
     if (!panel) return;
-    panel.hidden = !open;
+    panel.toggleAttribute('data-open', open);
     if (open) panel.querySelector<HTMLInputElement>('input[type="search"]')?.focus();
   }
 
   for (const button of disclosures) {
     button.addEventListener(
       'click',
-      () => {
+      (event) => {
+        // The search control is a link to the search page for visitors without JavaScript.
+        event.preventDefault();
         const open = button.getAttribute('aria-expanded') !== 'true';
         disclosures.forEach((other) => other !== button && setDisclosure(other, false));
         setDisclosure(button, open);

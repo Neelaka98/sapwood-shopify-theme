@@ -1,16 +1,20 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}">
+<html lang="{{ request.locale.iso_code }}" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- comment -%}Inline and first so the js class is set before the first paint, with no flash of the no-JS layout.{%- endcomment %}
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank %}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif %}
     <title>
-      {{- page_title -}}
+      {{- page_title | escape -}}
       {%- if current_page != 1 %} &ndash; {{ 'general.page_number' | t: page: current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name | escape }}{% endunless -%}
     </title>
     {%- if page_description %}
       <meta name="description" content="{{ page_description | escape }}">

@@ -9,19 +9,19 @@
   const searchButton = header.querySelector('[aria-controls="HeaderSearch"]');
   searchButton.click();
   await frame();
-  assert(!document.getElementById('HeaderSearch').hidden, 'Search opens');
+  assert(document.getElementById('HeaderSearch').hasAttribute('data-open'), 'Search opens');
   assert(document.activeElement?.id === 'HeaderSearchInput', 'Search input takes focus');
   escape();
-  assert(document.getElementById('HeaderSearch').hidden, 'Escape closes search');
+  assert(!document.getElementById('HeaderSearch').hasAttribute('data-open'), 'Escape closes search');
   assert(document.activeElement === searchButton, 'Focus returns to the search button');
 
   if (matchMedia('(min-width: 64rem)').matches) {
     const submenuButton = header.querySelector('nav [data-disclosure]');
     assert(submenuButton, 'Menu link with children renders as a disclosure');
     submenuButton.click();
-    assert(!document.getElementById(submenuButton.getAttribute('aria-controls')).hidden, 'Submenu opens');
+    assert(document.getElementById(submenuButton.getAttribute('aria-controls')).hasAttribute('data-open'), 'Submenu opens');
     document.body.click();
-    assert(document.getElementById(submenuButton.getAttribute('aria-controls')).hidden, 'Click outside closes submenu');
+    assert(!document.getElementById(submenuButton.getAttribute('aria-controls')).hasAttribute('data-open'), 'Click outside closes submenu');
     return 'header desktop ok';
   }
 

@@ -73,6 +73,11 @@
   .header-submenu {
     padding-block: 0.5rem;
   }
+  /* A data-open state rather than the hidden attribute, because Tailwind's preflight hides [hidden] with !important and the no-JS rules below could not undo that. */
+  .js .header-submenu:not([data-open]),
+  .js .header-search:not([data-open]) {
+    display: none;
+  }
   .header-sublink {
     display: flex;
     align-items: center;
@@ -151,6 +156,34 @@
       overflow: hidden;
       clip-path: inset(50%);
       white-space: nowrap;
+    }
+  }
+  /* Without JavaScript nothing can open a panel, so the menu, submenus and search are always shown in the page flow. */
+  .no-js .header-menu [data-disclosure],
+  .no-js [data-menu-toggle] {
+    display: none;
+  }
+  .no-js .header-search {
+    position: static;
+  }
+  .no-js .header-submenu {
+    position: static;
+    min-width: 0;
+    border: 0;
+    padding: 0 0 0.5rem 1rem;
+  }
+  @media (max-width: 63.99rem) {
+    .no-js .header-bar {
+      flex-wrap: wrap;
+    }
+    .no-js .header-bar > :not(.header-menu) {
+      min-height: 4rem;
+    }
+    .no-js .header-menu {
+      display: block;
+      order: 1;
+      flex-basis: 100%;
+      padding-bottom: 1rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {
