@@ -1,0 +1,33 @@
+{% doc %}
+  Inline SVG icon. Decorative: the control holding it needs its own accessible name.
+
+  @param {string} name - search, bag, menu, close, chevron-down, chevron-left, chevron-right, expand, minus or plus
+  @param {number} [size] - Width and height in px, default 24
+  @param {string} [class] - Classes for the svg element
+{% enddoc %}
+{%- liquid
+  assign icon_size = size | default: 24
+  case name
+    when 'search'
+      assign paths = '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'
+    when 'bag'
+      assign paths = '<path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'
+    when 'menu'
+      assign paths = '<path d="M4 7h16M4 12h16M4 17h16"/>'
+    when 'close'
+      assign paths = '<path d="M6 6l12 12M18 6 6 18"/>'
+    when 'chevron-down'
+      assign paths = '<path d="m6 9 6 6 6-6"/>'
+    when 'chevron-left'
+      assign paths = '<path d="m15 5-7 7 7 7"/>'
+    when 'chevron-right'
+      assign paths = '<path d="m9 5 7 7-7 7"/>'
+    when 'expand'
+      assign paths = '<path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/>'
+    when 'minus'
+      assign paths = '<path d="M5 12h14"/>'
+    when 'plus'
+      assign paths = '<path d="M12 5v14M5 12h14"/>'
+  endcase
+-%}
+<svg class="{{ class }}" width="{{ icon_size }}" height="{{ icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ paths }}</svg>

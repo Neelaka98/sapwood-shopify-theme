@@ -1,0 +1,94 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "main_menu": "Main",
+    "menu": "Menu",
+    "search": "Search",
+    "search_label": "Search the store",
+    "home": "Home",
+    "breadcrumb": "Breadcrumb",
+    "error": "Error:",
+    "network_error": "Something went wrong. Check your connection and try again.",
+    "page_number": "Page {{ page }}",
+    "pagination": "Pagination",
+    "previous_page": "Previous page",
+    "next_page": "Next page"
+  },
+  "localization": {
+    "country": "Country/region",
+    "language": "Language",
+    "update": "Update"
+  },
+  "cart": {
+    "title": "Your cart",
+    "open": {
+      "one": "Cart, {{ count }} item",
+      "other": "Cart, {{ count }} items"
+    },
+    "close": "Close cart",
+    "empty": "Your cart is empty.",
+    "continue_shopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "shipping_note": "Shipping is worked out at checkout.",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "quantity_of": "Quantity of {{ title }}",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "was": "was",
+    "added": "Added to your cart.",
+    "updated": "Cart updated."
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "from": "From {{ price }}",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "choose": "Choose an option",
+    "was": "was",
+    "sale": "Sale",
+    "off": "Off",
+    "images": "Product images",
+    "view_larger": "View larger image",
+    "previous_image": "Previous image",
+    "next_image": "Next image",
+    "close_viewer": "Close",
+    "image_count": "Image {{ index }} of {{ count }}",
+    "show_image": "Show image {{ index }} of {{ count }}"
+  },
+  "collections": {
+    "empty": "No products in this collection yet."
+  },
+  "search": {
+    "title": "Search",
+    "submit": "Search",
+    "results_for": {
+      "one": "{{ count }} result for \"{{ terms }}\"",
+      "other": "{{ count }} results for \"{{ terms }}\""
+    },
+    "no_results": "No results for \"{{ terms }}\". Try a different word."
+  },
+  "newsletter": {
+    "label": "Email address",
+    "submit": "Sign up",
+    "success": "Thanks for signing up."
+  },
+  "footer": {
+    "payment_methods": "Payment methods"
+  },
+  "templates": {
+    "404": {
+      "title": "Page not found",
+      "text": "The page you were looking for doesn't exist.",
+      "link": "Back to the shop"
+    },
+    "password": {
+      "title": "Opening soon",
+      "password": "Password",
+      "submit": "Enter"
+    }
+  }
+}

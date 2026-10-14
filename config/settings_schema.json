@@ -1,0 +1,90 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Smallholder",
+    "theme_version": "0.1.0",
+    "theme_author": "Neelaka Ganegoda",
+    "theme_documentation_url": "https://neelakaganegoda.com",
+    "theme_support_url": "https://neelakaganegoda.com"
+  },
+  {
+    "name": "t:settings_schema.colors.name",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "info": "t:settings_schema.colors.info",
+        "definition": [
+          { "type": "color", "id": "background", "label": "t:settings_schema.colors.background", "default": "#FFFFFF" },
+          { "type": "color_background", "id": "background_gradient", "label": "t:settings_schema.colors.background_gradient" },
+          { "type": "color", "id": "text", "label": "t:settings_schema.colors.text", "default": "#590303" },
+          { "type": "color", "id": "heading", "label": "t:settings_schema.colors.heading", "default": "#8C1A0F" },
+          { "type": "color", "id": "muted", "label": "t:settings_schema.colors.muted", "default": "#A64D2D" },
+          { "type": "color", "id": "button", "label": "t:settings_schema.colors.button", "default": "#ADBF24" },
+          { "type": "color", "id": "button_text", "label": "t:settings_schema.colors.button_text", "default": "#590303" },
+          { "type": "color", "id": "border", "label": "t:settings_schema.colors.border", "default": "#598C0D" }
+        ],
+        "role": {
+          "text": "text",
+          "background": { "solid": "background", "gradient": "background_gradient" },
+          "links": "heading",
+          "icons": "text",
+          "primary_button": "button",
+          "on_primary_button": "button_text",
+          "primary_button_border": "button",
+          "secondary_button": "background",
+          "on_secondary_button": "text",
+          "secondary_button_border": "text"
+        }
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      { "type": "font_picker", "id": "heading_font", "label": "t:settings_schema.typography.heading_font", "default": "jost_n7" },
+      { "type": "font_picker", "id": "body_font", "label": "t:settings_schema.typography.body_font", "default": "hanken_grotesk_n4" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.shape.name",
+    "settings": [
+      {
+        "type": "select",
+        "id": "corner_radius",
+        "label": "t:settings_schema.shape.corner_radius",
+        "default": "0",
+        "options": [
+          { "value": "0", "label": "t:settings_schema.shape.square" },
+          { "value": "4", "label": "t:settings_schema.shape.small" },
+          { "value": "8", "label": "t:settings_schema.shape.medium" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.logo.name",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "t:settings_schema.logo.logo" },
+      { "type": "range", "id": "logo_width", "label": "t:settings_schema.logo.logo_width", "min": 60, "max": 240, "step": 4, "unit": "px", "default": 120 }
+    ]
+  },
+  {
+    "name": "t:settings_schema.motion.name",
+    "settings": [
+      { "type": "checkbox", "id": "motion", "label": "t:settings_schema.motion.motion", "info": "t:settings_schema.motion.info", "default": true }
+    ]
+  },
+  {
+    "name": "t:settings_schema.favicon.name",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "t:settings_schema.favicon.favicon", "info": "t:settings_schema.favicon.info" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.social.name",
+    "settings": [
+      { "type": "image_picker", "id": "share_image", "label": "t:settings_schema.social.share_image", "info": "t:settings_schema.social.info" }
+    ]
+  }
+]

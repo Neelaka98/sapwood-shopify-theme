@@ -1,0 +1,133 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colours",
+      "info": "Each section picks one of these schemes. Keep text and button labels at a contrast ratio of at least 4.5:1 against their background (WCAG 2.1 AA).",
+      "background": "Background",
+      "background_gradient": "Background gradient",
+      "text": "Text",
+      "heading": "Headings",
+      "muted": "Muted text",
+      "button": "Button",
+      "button_text": "Button text",
+      "border": "Borders"
+    },
+    "typography": {
+      "name": "Typography",
+      "heading_font": "Headings",
+      "body_font": "Body"
+    },
+    "shape": {
+      "name": "Shape",
+      "corner_radius": "Corner radius",
+      "square": "Square",
+      "small": "Small",
+      "medium": "Medium"
+    },
+    "logo": {
+      "name": "Logo",
+      "logo": "Logo image",
+      "logo_width": "Logo width"
+    },
+    "motion": {
+      "name": "Motion",
+      "motion": "Animate sections as they scroll into view",
+      "info": "Visitors whose device asks for reduced motion never see these animations."
+    },
+    "favicon": {
+      "name": "Favicon",
+      "favicon": "Favicon image",
+      "info": "Shown at 32 x 32 px."
+    },
+    "social": {
+      "name": "Social sharing",
+      "share_image": "Sharing image",
+      "info": "Used when a page has no image of its own. 1200 x 628 px works best."
+    }
+  },
+  "sections": {
+    "all": {
+      "color_scheme": "Colour scheme"
+    },
+    "header": {
+      "name": "Header",
+      "menu": "Menu",
+      "show_shop_name": "Show store name next to the logo",
+      "sticky": "Keep header visible when scrolling"
+    },
+    "footer": {
+      "name": "Footer",
+      "show_newsletter": "Show newsletter signup",
+      "newsletter_heading": "Newsletter heading",
+      "newsletter_text": "Newsletter text",
+      "show_payment_icons": "Show payment icons",
+      "credit": "Bottom line text",
+      "blocks": {
+        "menu": {
+          "name": "Menu",
+          "heading": "Heading",
+          "menu": "Menu"
+        },
+        "text": {
+          "name": "Text",
+          "heading": "Heading",
+          "text": "Text"
+        }
+      }
+    },
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
+    "main_cart": {
+      "name": "Cart"
+    },
+    "main_product": {
+      "name": "Product",
+      "blocks": {
+        "text": {
+          "name": "Text",
+          "text": "Text"
+        },
+        "title": {
+          "name": "Title"
+        },
+        "price": {
+          "name": "Price"
+        },
+        "variant_picker": {
+          "name": "Variant picker"
+        },
+        "buy_buttons": {
+          "name": "Quantity and add to cart",
+          "max_quantity": "Largest quantity per add"
+        },
+        "description": {
+          "name": "Description"
+        },
+        "link": {
+          "name": "Link box",
+          "heading": "Heading",
+          "text": "Text",
+          "label": "Link label",
+          "url": "Link"
+        }
+      }
+    },
+    "main_collection": {
+      "name": "Collection",
+      "products_per_page": "Products per page"
+    },
+    "main_search": {
+      "name": "Search results"
+    },
+    "main_page": {
+      "name": "Page"
+    },
+    "main_404": {
+      "name": "Page not found"
+    },
+    "main_password": {
+      "name": "Password page"
+    }
+  }
+}

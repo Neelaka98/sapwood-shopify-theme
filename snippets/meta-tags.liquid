@@ -1,0 +1,21 @@
+{% doc %}
+  Open Graph and Twitter card tags. Pages without their own image fall back to the theme's sharing image.
+{% enddoc %}
+{%- liquid
+  assign og_type = 'website'
+  if request.page_type == 'product'
+    assign og_type = 'product'
+  endif
+  assign og_image = page_image | default: settings.share_image
+  assign og_description = page_description | default: shop.description | default: shop.name
+-%}
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description | escape }}">
+{%- if og_image %}
+  <meta property="og:image" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:alt" content="{{ og_image.alt | default: shop.name | escape }}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">

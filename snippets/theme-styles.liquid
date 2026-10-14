@@ -1,0 +1,41 @@
+{% doc %}
+  Font faces and the CSS variables every style reads: fonts, corner radius, and one block of --scheme-* colours
+  per colour scheme. Rendered with the style tag so the theme editor updates it live.
+{% enddoc %}
+{%- liquid
+  assign heading_font = settings.heading_font
+  assign body_font = settings.body_font
+  assign body_font_bold = body_font | font_modify: 'weight', 'bold'
+  assign body_font_italic = body_font | font_modify: 'style', 'italic'
+-%}
+{% style %}
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {{ body_font_bold | font_face: font_display: 'swap' }}
+  {{ body_font_italic | font_face: font_display: 'swap' }}
+
+  :root {
+    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-heading-weight: {{ heading_font.weight }};
+    --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+    --radius: {{ settings.corner_radius }}px;
+  }
+
+  {% for scheme in settings.color_schemes %}
+    {%- if forloop.first %}:root, {% endif %}.color-{{ scheme.id }} {
+      --scheme-ground: {{ scheme.settings.background }};
+      --scheme-ground-gradient: {% if scheme.settings.background_gradient != blank %}{{ scheme.settings.background_gradient }}{% else %}none{% endif %};
+      --scheme-ink: {{ scheme.settings.text }};
+      --scheme-heading: {{ scheme.settings.heading }};
+      --scheme-muted: {{ scheme.settings.muted }};
+      --scheme-accent: {{ scheme.settings.button }};
+      --scheme-on-accent: {{ scheme.settings.button_text }};
+      --scheme-line: {{ scheme.settings.border }};
+      --scheme-tint: color-mix(in srgb, {{ scheme.settings.button }} 20%, {{ scheme.settings.background }});
+      --scheme-hairline: color-mix(in srgb, {{ scheme.settings.border }} 30%, {{ scheme.settings.background }});
+      background-color: var(--scheme-ground);
+      background-image: var(--scheme-ground-gradient);
+      color: var(--scheme-ink);
+    }
+  {% endfor %}
+{% endstyle %}

@@ -1,0 +1,21 @@
+{% doc %}
+  Routes and translated strings for theme.js. Routes come from the routes object so they keep the market's
+  locale prefix, for example /en-gb/cart/add.
+{% enddoc %}
+<script type="application/json" id="theme-data">
+  {
+    "routes": {
+      "cartAdd": {{ routes.cart_add_url | append: '.js' | json }},
+      "cartChange": {{ routes.cart_change_url | append: '.js' | json }},
+      "cart": {{ routes.cart_url | json }}
+    },
+    "strings": {
+      "networkError": {{ 'general.network_error' | t | json }},
+      "added": {{ 'cart.added' | t | json }},
+      "updated": {{ 'cart.updated' | t | json }},
+      "addToCart": {{ 'products.add_to_cart' | t | json }},
+      "soldOut": {{ 'products.sold_out' | t | json }},
+      "unavailable": {{ 'products.unavailable' | t | json }}
+    }
+  }
+</script>

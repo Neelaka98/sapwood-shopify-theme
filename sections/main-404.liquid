@@ -1,0 +1,16 @@
+<div class="color-{{ section.settings.color_scheme }} py-24">
+  <div class="wrap max-w-2xl text-center">
+    <h1 class="text-section">{{ 'templates.404.title' | t }}</h1>
+    <p class="mt-4 text-lg">{{ 'templates.404.text' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary mt-8">{{ 'templates.404.link' | t }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_404.name",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}

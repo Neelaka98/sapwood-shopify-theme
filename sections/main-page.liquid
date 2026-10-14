@@ -1,0 +1,15 @@
+<div class="color-{{ section.settings.color_scheme }} py-16 lg:py-20">
+  <div class="wrap max-w-3xl">
+    <h1 class="text-section">{{ page.title | escape }}</h1>
+    <div class="rte mt-8">{{ page.content }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_page.name",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}

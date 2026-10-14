@@ -1,0 +1,42 @@
+{
+  "current": {
+    "color_schemes": {
+      "light": {
+        "settings": {
+          "background": "#FFFFFF",
+          "background_gradient": "",
+          "text": "#590303",
+          "heading": "#8C1A0F",
+          "muted": "#A64D2D",
+          "button": "#ADBF24",
+          "button_text": "#590303",
+          "border": "#598C0D"
+        }
+      },
+      "band": {
+        "settings": {
+          "background": "#8C1A0F",
+          "background_gradient": "",
+          "text": "#FBFAF6",
+          "heading": "#FBFAF6",
+          "muted": "#D6DF91",
+          "button": "#ADBF24",
+          "button_text": "#590303",
+          "border": "#D6DF91"
+        }
+      },
+      "dark": {
+        "settings": {
+          "background": "#590303",
+          "background_gradient": "",
+          "text": "#FBFAF6",
+          "heading": "#ADBF24",
+          "muted": "#D6DF91",
+          "button": "#ADBF24",
+          "button_text": "#590303",
+          "border": "#ADBF24"
+        }
+      }
+    }
+  }
+}

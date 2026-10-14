@@ -4,3 +4,265 @@
 @source '../../snippets';
 @source '../../templates';
 @source '../ts';
+
+/*
+  Every colour reads a --scheme-* variable. snippets/theme-styles.liquid writes those for :root and for each
+  .color-<scheme-id> class, so the same utility (text-ink, bg-tint) restyles with whichever scheme a section picks.
+  inline makes utilities reference the variables directly instead of copies resolved once on :root.
+*/
+@theme inline {
+  --color-ground: var(--scheme-ground);
+  --color-ink: var(--scheme-ink);
+  --color-heading: var(--scheme-heading);
+  --color-muted: var(--scheme-muted);
+  --color-accent: var(--scheme-accent);
+  --color-on-accent: var(--scheme-on-accent);
+  --color-line: var(--scheme-line);
+  --color-tint: var(--scheme-tint);
+  --color-hairline: var(--scheme-hairline);
+
+  --font-display: var(--font-heading-family);
+  --font-sans: var(--font-body-family);
+
+  /* Section headings (h2, and the page h1 on text pages) use text-section, item titles use text-card. */
+  --text-section: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
+  --text-section--line-height: 1.05;
+  --text-card: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+  --text-card--line-height: 1.1;
+
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  /*
+    Everything is rem-based and the column caps at 80rem, so on wide screens the page looked small inside large
+    margins. Growing the root from 1440px scales type, spacing and the column together, capped at 20px.
+  */
+  @media (min-width: 90rem) {
+    html {
+      font-size: clamp(100%, 0.625rem + 0.4167vw, 125%);
+    }
+  }
+  body {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--scheme-heading);
+    font-family: var(--font-display);
+    font-weight: var(--font-heading-weight);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  h2 {
+    font-size: var(--text-section);
+  }
+  h3 {
+    font-size: var(--text-card);
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-decoration-thickness: 2px;
+  }
+  ::selection {
+    background: var(--scheme-accent);
+    color: var(--scheme-on-accent);
+  }
+  input,
+  select,
+  textarea {
+    accent-color: var(--scheme-accent);
+  }
+  :focus-visible {
+    outline: 3px solid var(--scheme-ink);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html:focus-within {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .wrap {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .wrap {
+      padding-inline: 2rem;
+    }
+  }
+
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--scheme-ink);
+    color: var(--scheme-ground);
+    transform: translateY(-200%);
+  }
+  .skip-link:focus {
+    transform: none;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-primary {
+    background: var(--scheme-accent);
+    color: var(--scheme-on-accent);
+  }
+  .btn-primary:hover {
+    background: var(--scheme-ink);
+    color: var(--scheme-ground);
+  }
+  .btn-outline {
+    border: 2px solid var(--scheme-ink);
+    color: var(--scheme-ink);
+  }
+  .btn-outline:hover {
+    background: var(--scheme-tint);
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border-radius: var(--radius);
+    transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Touch screens get no hover state, so the press is the only immediate sign a tap landed. */
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+  }
+  /* Guarded like Tailwind's hover: variant. Unguarded, a tap leaves :hover stuck on touch screens. */
+  @media (hover: hover) {
+    .icon-btn:hover {
+      background: var(--scheme-tint);
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .field > label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--scheme-line);
+    border-radius: var(--radius);
+    background-color: var(--scheme-ground);
+    color: var(--scheme-ink);
+    font-size: 1rem;
+  }
+  .field [aria-invalid='true'] {
+    border: 2px solid var(--scheme-heading);
+  }
+  /* Errors carry an icon and an "Error:" prefix for screen readers, so the state never relies on colour. */
+  .field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--scheme-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  .field-error > [aria-hidden] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.0625rem;
+    background: var(--scheme-ink);
+    color: var(--scheme-ground);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .display-caps {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .rte > * + * {
+    margin-top: 1em;
+  }
+  .rte a {
+    color: var(--scheme-heading);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .rte ul,
+  .rte ol {
+    padding-left: 1.25em;
+  }
+  .rte ul {
+    list-style: disc;
+  }
+  .rte ol {
+    list-style: decimal;
+  }
+}
