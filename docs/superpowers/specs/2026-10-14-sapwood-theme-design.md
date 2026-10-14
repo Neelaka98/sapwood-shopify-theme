@@ -1,8 +1,8 @@
-# Smallholder Shopify theme design
+# Sapwood Shopify theme design
 
-Smallholder is a Shopify Online Store 2.0 theme for small producers who sell what they make. It is ported from the RaaLa Kithul design concept (`~/Development/Raala-pitch`), an Astro 7 and Tailwind 4 site. RaaLa declined the concept, so none of RaaLa's brand assets, copy or product data may ship in this theme. The layout, components, motion and interaction logic are Neelaka Ganegoda's own work and carry over.
+Sapwood is a Shopify Online Store 2.0 theme for small producers who sell what they make. It is ported from the RaaLa Kithul design concept (`~/Development/Raala-pitch`), an Astro 7 and Tailwind 4 site. RaaLa declined the concept, so none of RaaLa's brand assets, copy or product data may ship in this theme. The layout, components, motion and interaction logic are Neelaka Ganegoda's own work and carry over.
 
-"Smallholder" is a working name. It appears in `config/settings_schema.json` (`theme_info`), `package.json`, the README and the repo folder, and can be changed in those four places.
+The theme was called Smallholder while it was planned and was renamed Sapwood on 2026-10-15. The name appears in `config/settings_schema.json` (`theme_info`), `package.json`, the README, the GitHub repo and the repo folder.
 
 ## Goals
 
@@ -17,7 +17,7 @@ The first goal is a theme Neelaka can install for food-brand clients and adjust 
 
 ## Repository and build
 
-The theme lives in its own repo at `~/Development/smallholder`. The Astro concept repo is left unchanged as a portfolio piece.
+The theme lives in its own repo at `~/Development/sapwood`. The Astro concept repo is left unchanged as a portfolio piece.
 
 ```
 assets/        compiled theme.css and theme.js, fonts, icons

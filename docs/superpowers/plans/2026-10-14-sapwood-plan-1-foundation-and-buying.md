@@ -1,4 +1,4 @@
-# Smallholder plan 1: foundation and buying path
+# Sapwood plan 1: foundation and buying path
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -8,7 +8,7 @@
 
 **Tech stack:** Shopify CLI 4.9.3, Liquid with LiquidDoc, Tailwind CSS 4.3.3 (CLI), esbuild 0.28.2, TypeScript 6.0.3, Node 24 (`node --test` with built-in type stripping), agent-browser for browser checks, Lighthouse 13.5.0.
 
-**Spec:** `docs/superpowers/specs/2026-10-14-smallholder-theme-design.md`. This plan covers the spec's repository and build, text, theme settings, the cart, product page, collection, search and the basic templates. Later plans cover the homepage sections, FAQ, wholesale form, motion, metafield blocks and the metafield script, and the Natural Treacle demo content.
+**Spec:** `docs/superpowers/specs/2026-10-14-sapwood-theme-design.md`. This plan covers the spec's repository and build, text, theme settings, the cart, product page, collection, search and the basic templates. Later plans cover the homepage sections, FAQ, wholesale form, motion, metafield blocks and the metafield script, and the Natural Treacle demo content.
 
 **Concept source:** `~/Development/Raala-pitch` (Astro). Read-only. Several steps port from it and name the exact file.
 
@@ -122,7 +122,7 @@ README.md
 `package.json`:
 ```json
 {
-  "name": "smallholder",
+  "name": "sapwood",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -167,7 +167,7 @@ Relative imports in `src/ts` always use the `.ts` extension and type-only import
 
 Run:
 ```bash
-cd ~/Development/smallholder && source ~/.nvm/nvm.sh && nvm use
+cd ~/Development/sapwood && source ~/.nvm/nvm.sh && nvm use
 npm install -D --save-exact @shopify/cli@4.9.3 @tailwindcss/cli@4.3.3 tailwindcss@4.3.3 esbuild@0.28.2 typescript@6.0.3
 ```
 Expected: `package-lock.json` created, no errors.
@@ -248,7 +248,7 @@ import './sections.ts';
 
 `README.md`:
 ````markdown
-# Smallholder
+# Sapwood
 
 A Shopify Online Store 2.0 theme for small producers who sell what they make. Working name.
 
@@ -572,7 +572,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 [
   {
     "name": "theme_info",
-    "theme_name": "Smallholder",
+    "theme_name": "Sapwood",
     "theme_version": "0.1.0",
     "theme_author": "Neelaka Ganegoda",
     "theme_documentation_url": "https://neelakaganegoda.com",

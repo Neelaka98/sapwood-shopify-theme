@@ -1,4 +1,4 @@
-# Smallholder
+# Sapwood
 
 A Shopify Online Store 2.0 theme for small producers who sell what they make. Working name.
 
