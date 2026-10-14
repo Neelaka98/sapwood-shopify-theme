@@ -25,7 +25,7 @@
             {%- for item in search.results -%}
               <li>
                 {%- if item.object_type == 'product' -%}
-                  {% render 'product-card', product: item %}
+                  {% render 'product-card', product: item, heading_tag: 'h2' %}
                 {%- else -%}
                   <a href="{{ item.url }}" class="text-card underline-offset-4 hover:underline">{{ item.title | escape }}</a>
                 {%- endif -%}

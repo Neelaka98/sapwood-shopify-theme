@@ -3,9 +3,11 @@
 
   @param {object} product - The product
   @param {string} [sizes] - sizes attribute for the image, default suits a 2-column phone and 4-column desktop grid
+  @param {string} [heading_tag] - Heading element for the card title, h2 or h3 (default h3). Use one level below the heading the grid sits under.
 {% enddoc %}
 {%- liquid
   assign image_sizes = sizes | default: '(min-width: 64rem) 25vw, 50vw'
+  assign card_heading = heading_tag | default: 'h3'
   assign price_min = product.price_min | money
 -%}
 <article class="product-card group relative flex flex-col">
@@ -24,9 +26,9 @@
       {{ 'product-1' | placeholder_svg_tag: 'size-full' }}
     {%- endif -%}
   </div>
-  <h3 class="mt-3 text-card">
+  <{{ card_heading }} class="mt-3 text-card">
     <a href="{{ product.url }}" class="after:absolute after:inset-0">{{ product.title | escape }}</a>
-  </h3>
+  </{{ card_heading }}>
   <p class="tabular mt-1">
     {%- if product.price_varies -%}
       {{ 'products.from' | t: price: price_min }}
