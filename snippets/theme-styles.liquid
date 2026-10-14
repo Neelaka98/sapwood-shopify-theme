@@ -9,6 +9,9 @@
   assign body_font_italic = body_font | font_modify: 'style', 'italic'
 -%}
 {% style %}
+  /* Declares Tailwind's layer order first: this style block loads before theme.css, so the first statement seen wins. */
+  @layer properties, theme, base, components, utilities;
+
   {{ heading_font | font_face: font_display: 'swap' }}
   {{ body_font | font_face: font_display: 'swap' }}
   {{ body_font_bold | font_face: font_display: 'swap' }}
@@ -33,9 +36,14 @@
       --scheme-line: {{ scheme.settings.border }};
       --scheme-tint: color-mix(in srgb, {{ scheme.settings.button }} 20%, {{ scheme.settings.background }});
       --scheme-hairline: color-mix(in srgb, {{ scheme.settings.border }} 30%, {{ scheme.settings.background }});
-      background-color: var(--scheme-ground);
-      background-image: var(--scheme-ground-gradient);
-      color: var(--scheme-ink);
+    }
+    /* Layered so bg-* and text-* utilities on an element that also has a scheme class still win. */
+    @layer base {
+      {%- if forloop.first %}:root, {% endif %}.color-{{ scheme.id }} {
+        background-color: var(--scheme-ground);
+        background-image: var(--scheme-ground-gradient);
+        color: var(--scheme-ink);
+      }
     }
   {% endfor %}
 {% endstyle %}
