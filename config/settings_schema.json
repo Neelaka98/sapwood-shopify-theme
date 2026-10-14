@@ -43,7 +43,7 @@
     "name": "t:settings_schema.typography.name",
     "settings": [
       { "type": "font_picker", "id": "heading_font", "label": "t:settings_schema.typography.heading_font", "default": "jost_n7" },
-      { "type": "font_picker", "id": "body_font", "label": "t:settings_schema.typography.body_font", "default": "hanken_grotesk_n4" }
+      { "type": "font_picker", "id": "body_font", "label": "t:settings_schema.typography.body_font", "default": "jost_n4" }
     ]
   },
   {
