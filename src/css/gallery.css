@@ -53,6 +53,11 @@
     outline: 2px solid var(--scheme-accent);
     outline-offset: 2px;
   }
+  /* The selected thumbnail's accent outline would otherwise replace the global focus ring and hide keyboard focus on it. */
+  .gallery-thumb[aria-current='true']:focus-visible {
+    outline: 3px solid var(--scheme-ink);
+    outline-offset: 3px;
+  }
   .gallery-thumb img {
     display: block;
     width: 100%;

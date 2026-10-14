@@ -38,6 +38,17 @@
       }
     }
   }
+  /* Reduced motion keeps a short fade so the menu doesn't just snap in, but drops the slide. */
+  @media (max-width: 63.99rem) and (prefers-reduced-motion: reduce) {
+    .header-menu[data-open] {
+      transition: opacity 150ms ease;
+    }
+    @starting-style {
+      .header-menu[data-open] {
+        opacity: 0;
+      }
+    }
+  }
 
   .header-link {
     display: flex;
