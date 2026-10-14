@@ -10,7 +10,7 @@ The first goal is a theme Neelaka can install for food-brand clients and adjust 
 
 ### Out of scope for version 1
 
-- Theme Store-only requirements: collection filtering, customer account templates, gift card template, blog and article templates, multiple style presets, a second demo brand in another product category.
+- Theme Store-only requirements: collection filtering, customer account templates, gift card template, blog and article templates, multiple style presets, a second demo brand in another product category. Any store that sells gift cards shows Shopify's unstyled fallback gift card page until the theme adds `templates/gift_card.liquid`, planned for a later plan.
 - A shipping estimator. Shopify shows real rates at checkout.
 - Built-in reviews. The theme has an app block slot for a reviews app.
 - B2B pricing, which needs Shopify Plus. Trade buyers use the wholesale inquiry form.
@@ -96,7 +96,7 @@ Dropped from the concept: `PosterArt`, `ConceptStub`, `Confirm` and `/open-quest
 
 ### Cart
 
-Every add-to-cart control is a real `<form action="/cart/add" method="post">`, so buying works without JavaScript and lands on the cart page. With JavaScript, the form posts to `/cart/add.js`, quantity and remove go to `/cart/change.js`, and the cart drawer and header count are re-rendered through the Section Rendering API (`sections=cart-drawer,header` on the request). When Shopify returns an error (for example a 422 for stock limits), the drawer shows Shopify's `description` text in a live region and leaves the cart as it was. A network failure shows a generic message from `locales/` and keeps the form usable.
+Every add-to-cart control is a real `<form action="/cart/add" method="post">`, so buying works without JavaScript and lands on the cart page. With JavaScript, the form posts to `/cart/add.js`, quantity and remove go to `/cart/change.js`, and the cart sections on the page (the drawer, and the cart page section on `/cart`) are re-rendered through the Section Rendering API, and the header count and label are updated from data attributes on the drawer section. When Shopify returns an error (for example a 422 for stock limits), the drawer shows Shopify's `description` text in a live region and leaves the cart as it was. A network failure shows a generic message from `locales/` and keeps the form usable.
 
 ### Currency and country
 

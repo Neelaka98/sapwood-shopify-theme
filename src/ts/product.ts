@@ -11,7 +11,7 @@ function renderPrice(root: HTMLElement, variant: VariantData) {
   const compare = root.querySelector('[data-price-compare]');
   if (compare && variant.compareHtml) compare.innerHTML = variant.compareHtml;
   const stamp = root.querySelector<HTMLElement>('[data-sale-stamp]');
-  if (stamp) stamp.hidden = variant.percentOff === null;
+  if (stamp) stamp.hidden = variant.percentOff === null || variant.percentOff === 0;
   const percent = root.querySelector('[data-sale-percent]');
   if (percent && variant.percentOff !== null) percent.textContent = String(variant.percentOff);
 }

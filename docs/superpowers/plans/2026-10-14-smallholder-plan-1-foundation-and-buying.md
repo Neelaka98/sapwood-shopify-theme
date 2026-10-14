@@ -39,7 +39,7 @@ src/css/sale-stamp.css       sale stamp, ported from the concept
 src/ts/theme.ts              bundle entry
 src/ts/sections.ts           registerSection: init per section root, re-init on theme editor events
 src/ts/theme-data.ts         reads routes and strings printed by snippets/theme-data.liquid
-src/ts/header.ts             menu panel, disclosures, search, localization auto-submit
+src/ts/header.ts             menu panel, disclosures, search
 src/ts/cart-errors.ts        cartErrorMessage (pure)
 src/ts/cart.ts               Ajax cart, section re-rendering, drawer
 src/ts/variants.ts           findVariant, clampQuantity (pure)
