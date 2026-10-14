@@ -34,6 +34,6 @@
   assert(!header.querySelector('[data-menu]').hasAttribute('data-open'), 'Escape closes the menu');
   assert(document.activeElement === toggle, 'Focus returns to the menu button');
   const form = header.querySelector('.localization-form');
-  assert(form && form.querySelector('[data-localization-submit]').hidden, 'Localization submits on change, so its button hides');
+  assert(form && !form.querySelector('[data-localization-submit]').hidden, 'Localization keeps its Update button, so arrow keys never reload the page');
   return 'header mobile ok';
 })();

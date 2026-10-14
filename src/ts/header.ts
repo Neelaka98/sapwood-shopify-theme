@@ -106,11 +106,6 @@ registerSection('[data-header]', (header, signal) => {
     { signal },
   );
 
-  for (const form of header.querySelectorAll<HTMLFormElement>('.localization-form')) {
-    form.querySelector<HTMLElement>('[data-localization-submit]')?.setAttribute('hidden', '');
-    form.addEventListener('change', () => form.submit(), { signal });
-  }
-
   signal.addEventListener('abort', () => {
     document.documentElement.style.overflow = '';
   });

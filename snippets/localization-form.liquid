@@ -1,6 +1,6 @@
 {% doc %}
   Country and language selectors. Renders nothing when the store sells to one country in one language.
-  Works without JavaScript through its Update button; header.ts hides the button and submits on change.
+  Changes apply when the shopper presses Update. Submitting on change would reload the page on the first arrow key press in some browsers (WCAG 2.1 SC 3.2.2).
 
   @param {string} form_id - Unique id for the form
 {% enddoc %}
