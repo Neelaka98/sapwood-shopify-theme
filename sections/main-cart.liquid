@@ -1,0 +1,31 @@
+<div class="color-{{ section.settings.color_scheme }} py-12 lg:py-16">
+  <div class="wrap max-w-3xl" data-cart-section="{{ section.id }}">
+    <h1 class="text-section" tabindex="-1">{{ 'cart.title' | t }}</h1>
+    <p class="field-error mt-4 empty:hidden" role="alert" data-cart-error></p>
+    {%- if cart.empty? -%}
+      <p class="mt-8 text-lg">{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary mt-6">{{ 'cart.continue_shopping' | t }}</a>
+    {%- else -%}
+      <div class="mt-8">{% render 'cart-lines' %}</div>
+      <div class="mt-6 border-t border-hairline pt-6">
+        <div class="flex items-baseline justify-between text-lg">
+          <span class="font-semibold">{{ 'cart.subtotal' | t }}</span>
+          <span class="tabular font-semibold">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="mt-1 text-sm text-muted">{{ 'cart.shipping_note' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post" class="mt-4 sm:flex sm:justify-end">
+          <button type="submit" name="checkout" class="btn btn-primary w-full sm:w-auto">{{ 'cart.checkout' | t }}</button>
+        </form>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_cart.name",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ]
+}
+{% endschema %}

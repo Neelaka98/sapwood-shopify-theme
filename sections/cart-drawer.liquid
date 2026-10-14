@@ -1,0 +1,41 @@
+<div
+  class="flex h-full flex-col"
+  data-cart-section="{{ section.id }}"
+  data-item-count="{{ cart.item_count }}"
+  data-cart-label-text="{{ 'cart.open' | t: count: cart.item_count }}"
+>
+  <div class="flex items-center justify-between border-b border-hairline px-5 py-3">
+    <h2 id="CartDrawerTitle" class="text-card">{{ 'cart.title' | t }}</h2>
+    <button type="button" class="icon-btn" data-cart-close data-focus-id="cart-close">
+      {% render 'icon', name: 'close' %}
+      <span class="sr-only">{{ 'cart.close' | t }}</span>
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-5 py-4">
+    <p class="field-error empty:hidden" role="alert" data-cart-error></p>
+    {%- if cart.empty? -%}
+      <p class="py-10 text-center text-heading">{{ 'cart.empty' | t }}</p>
+    {%- else -%}
+      {% render 'cart-lines' %}
+    {%- endif -%}
+  </div>
+  {%- unless cart.empty? -%}
+    <div class="border-t border-hairline px-5 py-5">
+      <div class="flex items-baseline justify-between text-lg">
+        <span class="font-semibold">{{ 'cart.subtotal' | t }}</span>
+        <span class="tabular font-semibold">{{ cart.total_price | money }}</span>
+      </div>
+      <p class="mt-1 text-sm text-muted">{{ 'cart.shipping_note' | t }}</p>
+      <form action="{{ routes.cart_url }}" method="post" class="mt-4">
+        <button type="submit" name="checkout" class="btn btn-primary w-full">{{ 'cart.checkout' | t }}</button>
+      </form>
+    </div>
+  {%- endunless -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.cart_drawer.name",
+  "settings": []
+}
+{% endschema %}

@@ -5,6 +5,7 @@
 @source '../../templates';
 @source '../ts';
 @import './header.css';
+@import './cart.css';
 
 /*
   Every colour reads a --scheme-* variable. snippets/theme-styles.liquid writes those for :root and for each

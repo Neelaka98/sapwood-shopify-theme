@@ -28,6 +28,14 @@
       {{ content_for_layout }}
     </main>
     {% sections 'footer-group' %}
+    {%- comment -%}
+      The dialog stays outside the section so re-rendering the cart replaces only its contents and an open
+      drawer stays open. showModal() gives focus trapping, Escape to close and an inert page behind it.
+    {%- endcomment -%}
+    <dialog id="CartDrawer" class="side-sheet" aria-labelledby="CartDrawerTitle" data-cart-drawer>
+      {% section 'cart-drawer' %}
+    </dialog>
+    <p class="sr-only" aria-live="polite" data-cart-status></p>
     {% render 'theme-data' %}
   </body>
 </html>

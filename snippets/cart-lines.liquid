@@ -1,0 +1,74 @@
+{% doc %}
+  Cart lines with quantity and remove controls. The controls are links to /cart/change, so they work without
+  JavaScript. cart.ts intercepts them, posts to /cart/change.js and re-renders the cart sections in place.
+  data-focus-id lets cart.ts put focus back on the same control after the re-render.
+{% enddoc %}
+<ul class="divide-y divide-hairline" role="list">
+  {%- for item in cart.items -%}
+    {%- liquid
+      assign item_title = item.title | escape
+      assign decrease_quantity = item.quantity | minus: 1
+      assign increase_quantity = item.quantity | plus: 1
+    -%}
+    <li class="flex items-start gap-3 py-4">
+      <div class="size-16 shrink-0 border border-hairline bg-white">
+        {%- if item.image -%}
+          {{
+            item.image
+            | image_url: width: 128
+            | image_tag: width: 64, height: 64, alt: '', loading: 'lazy', class: 'size-full object-contain p-1'
+          }}
+        {%- endif -%}
+      </div>
+      <div class="min-w-0 flex-1">
+        <a href="{{ item.url }}" class="font-semibold underline-offset-4 hover:underline">
+          {{- item.product.title | escape -}}
+        </a>
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="text-sm text-muted">{{ item.variant.title | escape }}</p>
+        {%- endunless -%}
+        <p class="tabular mt-1 text-sm">
+          {{ item.final_line_price | money }}
+          {%- if item.original_line_price > item.final_line_price %}
+            <s class="text-muted"
+              ><span class="sr-only">{{ 'cart.was' | t }} </span>{{ item.original_line_price | money }}</s
+            >
+          {%- endif %}
+        </p>
+        <a
+          href="{{ item.url_to_remove }}"
+          class="-ml-1 inline-flex min-h-11 items-center px-1 text-sm font-semibold text-heading underline underline-offset-4 hover:text-ink"
+          data-cart-line="{{ forloop.index }}"
+          data-cart-quantity="0"
+          data-focus-id="remove-{{ item.key }}"
+        >
+          {{- 'cart.remove' | t -}}
+          <span class="sr-only">: {{ item_title }}</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-1" role="group" aria-label="{{ 'cart.quantity_of' | t: title: item_title }}">
+        <a
+          href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ decrease_quantity }}"
+          class="icon-btn border border-line"
+          data-cart-line="{{ forloop.index }}"
+          data-cart-quantity="{{ decrease_quantity }}"
+          data-focus-id="dec-{{ item.key }}"
+        >
+          {% render 'icon', name: 'minus', size: 18 %}
+          <span class="sr-only">{{ 'cart.decrease' | t }}</span>
+        </a>
+        <span class="tabular w-8 text-center font-semibold">{{ item.quantity }}</span>
+        <a
+          href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ increase_quantity }}"
+          class="icon-btn border border-line"
+          data-cart-line="{{ forloop.index }}"
+          data-cart-quantity="{{ increase_quantity }}"
+          data-focus-id="inc-{{ item.key }}"
+        >
+          {% render 'icon', name: 'plus', size: 18 %}
+          <span class="sr-only">{{ 'cart.increase' | t }}</span>
+        </a>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>
