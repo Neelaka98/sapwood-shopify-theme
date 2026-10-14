@@ -1,0 +1,19 @@
+{% doc %}
+  Current price, the compare-at price struck out, and a sale stamp. product.ts updates all three from the variant
+  data when the shopper changes variant, so they are always rendered and toggled with hidden.
+
+  @param {object} variant - The variant to price
+{% enddoc %}
+<p class="product-price tabular" data-product-price>
+  <span data-price-current>{{ variant.price | money }}</span>
+  <s
+    class="price-was"
+    data-price-was
+    {% unless variant.compare_at_price > variant.price %}
+      hidden
+    {% endunless %}
+  >
+    <span class="sr-only">{{ 'products.was' | t }} </span><span data-price-compare>{{ variant.compare_at_price | money }}</span>
+  </s>
+  {% render 'sale-stamp', variant: variant %}
+</p>

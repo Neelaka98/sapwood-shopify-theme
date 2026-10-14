@@ -1,0 +1,95 @@
+@layer components {
+  .sale-stamp {
+    /* Width and height are whole multiples of --hole-gap so the perforations meet evenly at every corner. */
+    --hole-gap: 0.75em;
+    --hole: 0.19em;
+    /*
+      Layer one punches a hole on every grid point; layer two fills the interior back in,
+      leaving only half-holes along the edges.
+    */
+    --perforation:
+      radial-gradient(circle var(--hole), #0000 97%, #000) calc(var(--hole-gap) / -2) calc(var(--hole-gap) / -2) / var(--hole-gap) var(--hole-gap),
+      linear-gradient(#000 0 0) center / calc(100% - var(--hole) * 2) calc(100% - var(--hole) * 2) no-repeat;
+    display: block;
+    /* A parent can set --sale-stamp-size where space is tight; everything in the stamp scales from it. */
+    font-size: var(--sale-stamp-size, 0.8125rem);
+    rotate: -7deg;
+    pointer-events: none;
+  }
+
+  /*
+    A solid offset copy in the ink colour, like a screenprint layer printed slightly out of register.
+    Drawn as a shape rather than with filter: drop-shadow, which rasterises the rotated text and blurs it.
+  */
+  .sale-stamp::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    translate: 0.2em 0.2em;
+    background: var(--scheme-ink);
+    mask: var(--perforation);
+  }
+
+  @media (min-width: 40rem) {
+    .sale-stamp {
+      font-size: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sale-stamp {
+      transition: rotate 340ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    :hover > .sale-stamp {
+      rotate: -2deg;
+    }
+  }
+
+  .sale-stamp-paper {
+    display: grid;
+    place-items: stretch;
+    width: calc(var(--hole-gap) * 6);
+    height: calc(var(--hole-gap) * 7);
+    padding: 0.4em;
+    position: relative;
+    background: var(--scheme-heading);
+    mask: var(--perforation);
+  }
+
+  .sale-stamp-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15em;
+    border: 1px solid var(--scheme-muted);
+    color: var(--scheme-ground);
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .sale-stamp-label {
+    /* About 9.5px on phones; anything smaller turns to mush once the stamp is rotated. */
+    font-size: 0.75em;
+    letter-spacing: 0.1em;
+    /* Tracking adds space after the last letter too; this pulls the word back to centre. */
+    margin-right: -0.1em;
+  }
+
+  .sale-stamp-value {
+    font-size: 1.5em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sale-stamp-value small {
+    font-size: 0.55em;
+    vertical-align: 0.6em;
+  }
+
+  .sale-stamp[hidden] {
+    display: none;
+  }
+}

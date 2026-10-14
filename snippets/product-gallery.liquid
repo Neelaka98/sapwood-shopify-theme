@@ -1,0 +1,127 @@
+{% doc %}
+  Product images: main image, thumbnail column and a full-screen viewer dialog. Starts on the selected variant's
+  image. Products without images show Shopify's placeholder illustration.
+
+  @param {object} product - The product
+  @param {object} current_variant - The variant selected on load
+{% enddoc %}
+{%- liquid
+  assign images = product.media | where: 'media_type', 'image'
+  assign start = current_variant.featured_media | default: images.first
+  assign start_index = 1
+  for media in images
+    if media.id == start.id
+      assign start_index = forloop.index
+    endif
+  endfor
+-%}
+{%- if images.size > 0 -%}
+  <div class="product-gallery" data-gallery>
+    <div class="gallery-main">
+      {%- for media in images -%}
+        {%- liquid
+          assign loading = 'lazy'
+          if media.id == start.id
+            assign loading = 'eager'
+          endif
+        -%}
+        <div
+          data-gallery-slide="{{ media.id }}"
+          {% unless media.id == start.id %}
+            hidden
+          {% endunless %}
+        >
+          {{
+            media
+            | image_url: width: 1240
+            | image_tag:
+              widths: '480, 680, 960, 1240',
+              sizes: '(min-width: 64rem) 620px, (min-width: 40rem) 530px, 100vw',
+              loading: loading,
+              class: 'gallery-image'
+          }}
+        </div>
+      {%- endfor -%}
+      <button type="button" class="gallery-control gallery-expand" data-gallery-open>
+        {% render 'icon', name: 'expand', size: 20 %}
+        <span class="sr-only">{{ 'products.view_larger' | t }}</span>
+      </button>
+      {%- if images.size > 1 -%}
+        <button type="button" class="gallery-control gallery-prev" data-gallery-step="-1">
+          {% render 'icon', name: 'chevron-left', size: 22 %}
+          <span class="sr-only">{{ 'products.previous_image' | t }}</span>
+        </button>
+        <button type="button" class="gallery-control gallery-next" data-gallery-step="1">
+          {% render 'icon', name: 'chevron-right', size: 22 %}
+          <span class="sr-only">{{ 'products.next_image' | t }}</span>
+        </button>
+        <p class="gallery-count" aria-hidden="true">
+          <span data-gallery-index>{{ start_index }}</span> / {{ images.size }}
+        </p>
+      {%- endif -%}
+    </div>
+    {%- if images.size > 1 -%}
+      <ul class="gallery-thumbnails" role="list" aria-label="{{ 'products.images' | t }}">
+        {%- for media in images -%}
+          <li>
+            <button
+              type="button"
+              class="gallery-thumb"
+              aria-current="{% if media.id == start.id %}true{% else %}false{% endif %}"
+              data-gallery-thumb="{{ media.id }}"
+            >
+              {{ media | image_url: width: 240 | image_tag: widths: '96, 144, 240', sizes: '80px', alt: '', loading: 'lazy' }}
+              <span class="sr-only">
+                {{- 'products.show_image' | t: index: forloop.index, count: images.size -}}
+                {%- if media.alt != blank %}: {{ media.alt | escape }}{% endif -%}
+              </span>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <dialog class="gallery-viewer" aria-label="{{ 'products.images' | t }}" data-gallery-viewer>
+      <div class="viewer-stage">
+        {%- for media in images -%}
+          <figure
+            data-viewer-slide="{{ media.id }}"
+            {% unless media.id == start.id %}
+              hidden
+            {% endunless %}
+          >
+            {{
+              media
+              | image_url: width: 1280
+              | image_tag: widths: '640, 960, 1280', sizes: '(min-width: 40rem) 80vh, 100vw', loading: 'lazy', class: 'viewer-image'
+            }}
+          </figure>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="gallery-control viewer-close" data-gallery-close>
+        {% render 'icon', name: 'close', size: 22 %}
+        <span class="sr-only">{{ 'products.close_viewer' | t }}</span>
+      </button>
+      {%- if images.size > 1 -%}
+        <button type="button" class="gallery-control viewer-prev" data-gallery-step="-1">
+          {% render 'icon', name: 'chevron-left', size: 24 %}
+          <span class="sr-only">{{ 'products.previous_image' | t }}</span>
+        </button>
+        <button type="button" class="gallery-control viewer-next" data-gallery-step="1">
+          {% render 'icon', name: 'chevron-right', size: 24 %}
+          <span class="sr-only">{{ 'products.next_image' | t }}</span>
+        </button>
+      {%- endif -%}
+      <p
+        class="viewer-count"
+        aria-live="polite"
+        data-viewer-count
+        data-template="{{ 'products.image_count' | t: index: '[index]', count: images.size | escape }}"
+      >
+        {{ 'products.image_count' | t: index: start_index, count: images.size }}
+      </p>
+    </dialog>
+  </div>
+{%- else -%}
+  <div class="gallery-main">{{ 'product-1' | placeholder_svg_tag: 'gallery-placeholder' }}</div>
+{%- endif -%}

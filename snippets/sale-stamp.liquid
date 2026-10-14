@@ -1,0 +1,28 @@
+{% doc %}
+  A postage stamp showing the percentage off. Hidden from screen readers: the price beside it already reads out
+  the old price. The percentage rounds down so the stamp never claims a bigger saving than the prices give.
+
+  @param {object} variant - The variant whose sale to show
+{% enddoc %}
+{%- liquid
+  assign percent_off = 0
+  if variant.compare_at_price > variant.price
+    assign percent_off = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price
+  endif
+-%}
+<span
+  class="sale-stamp"
+  aria-hidden="true"
+  data-sale-stamp
+  {% if percent_off == 0 %}
+    hidden
+  {% endif %}
+>
+  <span class="sale-stamp-paper">
+    <span class="sale-stamp-frame">
+      <span class="sale-stamp-label">{{ 'products.sale' | t }}</span>
+      <span class="sale-stamp-value"><span data-sale-percent>{{ percent_off }}</span><small>%</small></span>
+      <span class="sale-stamp-label">{{ 'products.off' | t }}</span>
+    </span>
+  </span>
+</span>

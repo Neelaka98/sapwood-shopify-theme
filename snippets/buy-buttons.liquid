@@ -1,0 +1,90 @@
+{% doc %}
+  Quantity and add to cart, as a real form posting to /cart/add so buying works without JavaScript. Without
+  JavaScript the noscript select picks the variant; with it, product.ts enables the hidden id input instead.
+
+  @param {object} product - The product
+  @param {object} current_variant - The variant selected on load
+  @param {string} form_id - Id for the form
+  @param {object} block - The buy buttons block
+{% enddoc %}
+<form
+  id="{{ form_id }}"
+  action="{{ routes.cart_add_url }}"
+  method="post"
+  class="purchase-strip"
+  data-product-form
+  {{ block.shopify_attributes }}
+>
+  <input
+    type="hidden"
+    name="id"
+    value="{{ current_variant.id }}"
+    data-variant-id
+    {% unless product.has_only_default_variant %}
+      disabled
+    {% endunless %}
+  >
+  {%- unless product.has_only_default_variant -%}
+    <noscript>
+      <div class="field purchase-noscript">
+        <label for="{{ form_id }}-variant">{{ 'products.choose' | t }}</label>
+        <select id="{{ form_id }}-variant" name="id">
+          {%- for variant in product.variants -%}
+            <option
+              value="{{ variant.id }}"
+              {% if variant.id == current_variant.id %}
+                selected
+              {% endif %}
+              {% unless variant.available %}
+                disabled
+              {% endunless %}
+            >
+              {{ variant.title | escape }} - {{ variant.price | money_with_currency }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+    </noscript>
+  {%- endunless -%}
+  <div>
+    <label for="{{ form_id }}-quantity" class="purchase-label">{{ 'products.quantity' | t }}</label>
+    <div class="quantity-control">
+      <button type="button" class="icon-btn" data-quantity-step="-1">
+        {% render 'icon', name: 'minus', size: 18 %}
+        <span class="sr-only">{{ 'products.decrease' | t }}</span>
+      </button>
+      <input
+        id="{{ form_id }}-quantity"
+        type="number"
+        name="quantity"
+        inputmode="numeric"
+        min="1"
+        max="{{ block.settings.max_quantity }}"
+        value="1"
+        data-quantity-input
+      >
+      <button type="button" class="icon-btn" data-quantity-step="1">
+        {% render 'icon', name: 'plus', size: 18 %}
+        <span class="sr-only">{{ 'products.increase' | t }}</span>
+      </button>
+    </div>
+  </div>
+  <button
+    type="submit"
+    class="btn product-add"
+    data-add-button
+    {% unless current_variant.available %}
+      disabled
+    {% endunless %}
+  >
+    {% render 'icon', name: 'bag', size: 20 %}
+    <span data-add-label>
+      {%- if current_variant.available -%}
+        {{ 'products.add_to_cart' | t }}
+      {%- else -%}
+        {{ 'products.sold_out' | t }}
+      {%- endif -%}
+    </span>
+  </button>
+  <p class="field-error purchase-error empty:hidden" role="alert" data-cart-error></p>
+</form>

@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "text": { "type": "text", "settings": { "text": "Small batch, made by hand." } },
+        "title": { "type": "title" },
+        "price": { "type": "price" },
+        "variant_picker": { "type": "variant_picker" },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "max_quantity": 20 } },
+        "description": { "type": "description" },
+        "trade": {
+          "type": "link",
+          "settings": {
+            "heading": "Buying for your business?",
+            "text": "Ask about pack sizes for cafes, restaurants and shops.",
+            "label": "Request trade prices",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "trade"],
+      "settings": { "color_scheme": "light" }
+    }
+  },
+  "order": ["main"]
+}

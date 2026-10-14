@@ -1,0 +1,105 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+<section
+  class="color-{{ section.settings.color_scheme }}"
+  aria-label="{{ product.title | escape }}"
+  data-product-root
+>
+  <div class="wrap">
+    <nav aria-label="{{ 'general.breadcrumb' | t }}" class="product-breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+        <li aria-hidden="true">/</li>
+        {%- if collection -%}
+          <li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>
+          <li aria-hidden="true">/</li>
+        {%- endif -%}
+        <li><span aria-current="page">{{ product.title | escape }}</span></li>
+      </ol>
+    </nav>
+
+    <div class="product-shopping">
+      <div class="min-w-0">
+        {% render 'product-gallery', product: product, current_variant: current_variant %}
+      </div>
+      <div class="product-buying">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'text' -%}
+              <p class="product-origin-line" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+            {%- when 'title' -%}
+              <h1 class="product-title" {{ block.shopify_attributes }}>{{ product.title | escape }}</h1>
+            {%- when 'price' -%}
+              <div {{ block.shopify_attributes }}>{% render 'product-price', variant: current_variant %}</div>
+            {%- when 'variant_picker' -%}
+              {% render 'variant-picker', product: product, form_id: form_id, block: block %}
+            {%- when 'buy_buttons' -%}
+              {% render 'buy-buttons', product: product, current_variant: current_variant, form_id: form_id, block: block %}
+            {%- when 'description' -%}
+              <div class="rte product-description" {{ block.shopify_attributes }}>{{ product.description }}</div>
+            {%- when 'link' -%}
+              <div class="product-trade" {{ block.shopify_attributes }}>
+                <div>
+                  {%- if block.settings.heading != blank -%}
+                    <h2>{{ block.settings.heading | escape }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p>{{ block.settings.text | escape }}</p>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.url != blank and block.settings.label != blank -%}
+                  <a href="{{ block.settings.url }}">{{ block.settings.label | escape }}</a>
+                {%- endif -%}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {% render 'product-variants-json', product: product %}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_product.name",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "text",
+      "name": "t:sections.main_product.blocks.text.name",
+      "settings": [
+        { "type": "inline_richtext", "id": "text", "label": "t:sections.main_product.blocks.text.text", "default": "Small batch, made by hand." }
+      ]
+    },
+    { "type": "title", "name": "t:sections.main_product.blocks.title.name", "limit": 1 },
+    { "type": "price", "name": "t:sections.main_product.blocks.price.name", "limit": 1 },
+    { "type": "variant_picker", "name": "t:sections.main_product.blocks.variant_picker.name", "limit": 1 },
+    {
+      "type": "buy_buttons",
+      "name": "t:sections.main_product.blocks.buy_buttons.name",
+      "limit": 1,
+      "settings": [
+        { "type": "range", "id": "max_quantity", "label": "t:sections.main_product.blocks.buy_buttons.max_quantity", "min": 1, "max": 99, "step": 1, "default": 20 }
+      ]
+    },
+    { "type": "description", "name": "t:sections.main_product.blocks.description.name", "limit": 1 },
+    {
+      "type": "link",
+      "name": "t:sections.main_product.blocks.link.name",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.link.heading", "default": "Buying for your business?" },
+        { "type": "text", "id": "text", "label": "t:sections.main_product.blocks.link.text", "default": "Ask about pack sizes for cafes, restaurants and shops." },
+        { "type": "text", "id": "label", "label": "t:sections.main_product.blocks.link.label", "default": "Request trade prices" },
+        { "type": "url", "id": "url", "label": "t:sections.main_product.blocks.link.url" }
+      ]
+    }
+  ]
+}
+{% endschema %}
