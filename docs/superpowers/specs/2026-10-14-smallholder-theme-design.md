@@ -56,7 +56,7 @@ These pairs come from the WCAG 2.1 contrast table in the concept's `src/styles/t
 
 ### Mapping to Tailwind
 
-`src/` defines Tailwind theme tokens (`--color-bg`, `--color-text`, `--color-heading`, `--color-muted`, `--color-button`, `--color-button-text`, `--color-border`) that point to CSS variables. `theme.liquid` writes those variables once per scheme under a `.color-<scheme-id>` class, and each section's wrapper carries the class for its chosen scheme. Class names in markup never change when a scheme does.
+`src/` defines Tailwind theme tokens (`--color-ground`, `--color-ink`, `--color-heading`, `--color-muted`, `--color-accent`, `--color-on-accent`, `--color-line`, plus the derived `--color-tint` and `--color-hairline`) that point to `--scheme-*` CSS variables. These names give readable utilities such as `bg-ground` and `text-ink`, where `--color-text` would give `text-text`. `theme.liquid` writes the `--scheme-*` variables once per scheme under a `.color-<scheme-id>` class, and each section's wrapper carries the class for its chosen scheme. Class names in markup never change when a scheme does.
 
 ### Other settings
 
