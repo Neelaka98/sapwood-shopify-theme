@@ -49,6 +49,29 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "image_with_text": {
+      "name": "Image with text",
+      "image": "Image",
+      "image_position": "Image position",
+      "left": "Left",
+      "right": "Right",
+      "heading": "Heading",
+      "text": "Text",
+      "link_label": "Link label",
+      "link": "Link"
+    },
+    "origin_map": {
+      "name": "Origin map",
+      "heading": "Heading",
+      "text": "Text",
+      "map": "Map image",
+      "map_info": "Write the pinned place into the image's alt text. Screen readers do not read the pin or its label.",
+      "pin_x": "Pin position across",
+      "pin_y": "Pin position down",
+      "pin_label": "Pin label",
+      "caption": "Caption",
+      "caption_info": "For example the map's source and licence."
+    },
     "hero": {
       "name": "Hero",
       "image": "Image",

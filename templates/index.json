@@ -11,7 +11,30 @@
         "button_link_2": "shopify://pages/contact",
         "color_scheme": "light"
       }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {
+        "image_position": "left",
+        "heading": "Who makes it",
+        "text": "<p>Tell customers who grows, picks and cooks what you sell, and where.</p>",
+        "link_label": "Read our story",
+        "link": "shopify://pages/contact",
+        "color_scheme": "light"
+      }
+    },
+    "origin_map": {
+      "type": "origin-map",
+      "settings": {
+        "heading": "Where it comes from",
+        "text": "<p>Name the place, the land and the people behind what you sell.</p>",
+        "pin_x": 40,
+        "pin_y": 70,
+        "pin_label": "Our farm",
+        "caption": "Map: your source and licence here",
+        "color_scheme": "light"
+      }
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "image_with_text", "origin_map"]
 }
