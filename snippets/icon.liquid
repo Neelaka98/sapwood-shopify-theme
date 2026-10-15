@@ -1,7 +1,7 @@
 {% doc %}
   Inline SVG icon. Decorative: the control holding it needs its own accessible name.
 
-  @param {string} name - search, bag, menu, close, chevron-down, chevron-left, chevron-right, expand, minus or plus
+  @param {string} name - search, bag, menu, close, chevron-down, chevron-left, chevron-right, expand, minus, plus, play or pause
   @param {number} [size] - Width and height in px, default 24
   @param {string} [class] - Classes for the svg element
 {% enddoc %}
@@ -28,6 +28,10 @@
       assign paths = '<path d="M5 12h14"/>'
     when 'plus'
       assign paths = '<path d="M12 5v14M5 12h14"/>'
+    when 'play'
+      assign paths = '<path d="M7 5v14l12-7L7 5Z"/>'
+    when 'pause'
+      assign paths = '<path d="M8 5v14M16 5v14"/>'
   endcase
 -%}
 <svg class="{{ class }}" width="{{ icon_size }}" height="{{ icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ paths }}</svg>

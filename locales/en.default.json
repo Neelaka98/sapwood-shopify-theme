@@ -79,6 +79,10 @@
   "footer": {
     "payment_methods": "Payment methods"
   },
+  "video": {
+    "play": "Play video",
+    "pause": "Pause video"
+  },
   "templates": {
     "404": {
       "title": "Page not found",

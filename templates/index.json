@@ -1,4 +1,17 @@
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Made in small batches by the people who grow it",
+        "text": "For the breakfast table, the tea pot and the baking tin.",
+        "button_label_1": "Shop the range",
+        "button_link_1": "shopify://collections/shop",
+        "button_label_2": "Buy for your business",
+        "button_link_2": "shopify://pages/contact",
+        "color_scheme": "light"
+      }
+    }
+  },
+  "order": ["hero"]
 }

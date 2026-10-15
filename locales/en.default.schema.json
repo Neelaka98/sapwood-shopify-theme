@@ -49,6 +49,19 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "hero": {
+      "name": "Hero",
+      "image": "Image",
+      "video": "Video",
+      "video_info": "Plays muted on a loop in place of the image, with a pause button. Visitors who ask for reduced motion see it paused.",
+      "heading": "Heading",
+      "heading_info": "The first section on a page shows this as the page's main heading.",
+      "text": "Text",
+      "button_label_1": "First button label",
+      "button_link_1": "First button link",
+      "button_label_2": "Second button label",
+      "button_link_2": "Second button link"
+    },
     "header": {
       "name": "Header",
       "menu": "Menu",
