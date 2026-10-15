@@ -90,7 +90,16 @@
       },
       "block_order": ["question_1", "question_2", "question_3"],
       "settings": { "heading": "Questions", "color_scheme": "light" }
+    },
+    "wholesale": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Wholesale and trade",
+        "text": "<p>For shops, restaurants and importers. Tell us what you need and we will reply with prices and pack options.</p>",
+        "trade_fields": true,
+        "color_scheme": "light"
+      }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq", "wholesale"]
 }

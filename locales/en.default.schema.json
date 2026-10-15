@@ -49,6 +49,14 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "contact_form": {
+      "name": "Contact form",
+      "wholesale_preset": "Wholesale inquiry",
+      "heading": "Heading",
+      "text": "Text",
+      "trade_fields": "Ask for business details",
+      "trade_fields_info": "Replaces name and phone with business name, country and expected volume, for wholesale inquiries. Submissions arrive at the store's sender email."
+    },
     "faq": {
       "name": "FAQ",
       "heading": "Heading",

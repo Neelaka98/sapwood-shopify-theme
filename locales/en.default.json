@@ -89,6 +89,19 @@
     "featured_product": "Pick a product for this section in the theme editor.",
     "product_title": "Example product"
   },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "business": "Business name",
+    "country": "Country",
+    "volume": "Expected volume a month",
+    "volume_hint": "For example 200 bottles or 3 cartons.",
+    "message": "Message",
+    "optional": "(optional)",
+    "submit": "Send",
+    "success": "Thanks for your message. We will reply by email."
+  },
   "templates": {
     "404": {
       "title": "Page not found",

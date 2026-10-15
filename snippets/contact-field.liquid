@@ -1,0 +1,75 @@
+{% doc %}
+  One labelled field of the contact form section.
+
+  @param {string} form_id - Id of the form, prefixes the field id so two forms on a page never share ids
+  @param {string} name - Key inside contact[...], for example email or body
+  @param {string} label - Visible label
+  @param {string} [type] - Input type, or textarea (default text)
+  @param {string} [autocomplete] - Autocomplete token
+  @param {boolean} [required] - Whether the field must be filled in. Optional fields say so in the label.
+  @param {string} [value] - Value to restore after a failed submit
+  @param {string} [hint] - Help text under the field
+  @param {string} [error] - Error message for this field
+  @param {string} [class] - Extra classes for the wrapper
+{% enddoc %}
+{%- liquid
+  assign field_id = form_id | append: '-' | append: name
+  assign field_type = type | default: 'text'
+  assign described_by = ''
+  if hint != blank
+    assign described_by = field_id | append: '-hint'
+  endif
+  if error != blank
+    assign described_by = described_by | append: ' ' | append: field_id | append: '-error' | strip
+  endif
+-%}
+<div class="field {{ class }}">
+  <label for="{{ field_id }}">
+    {{- label -}}
+    {%- unless required %} <span class="font-normal text-muted">{{ 'contact.optional' | t }}</span>{% endunless -%}
+  </label>
+  {%- if field_type == 'textarea' -%}
+    <textarea
+      id="{{ field_id }}"
+      name="contact[{{ name }}]"
+      rows="5"
+      {% if required %}
+        required
+      {% endif %}
+      {% if described_by != blank %}
+        aria-describedby="{{ described_by }}"
+      {% endif %}
+      {% if error != blank %}
+        aria-invalid="true"
+      {% endif %}
+    >{{ value | escape }}</textarea>
+  {%- else -%}
+    <input
+      id="{{ field_id }}"
+      type="{{ field_type }}"
+      name="contact[{{ name }}]"
+      value="{{ value | escape }}"
+      {% if autocomplete != blank %}
+        autocomplete="{{ autocomplete }}"
+      {% endif %}
+      {% if required %}
+        required
+      {% endif %}
+      {% if described_by != blank %}
+        aria-describedby="{{ described_by }}"
+      {% endif %}
+      {% if error != blank %}
+        aria-invalid="true"
+      {% endif %}
+    >
+  {%- endif -%}
+  {%- if hint != blank -%}
+    <p id="{{ field_id }}-hint" class="text-sm text-muted">{{ hint }}</p>
+  {%- endif -%}
+  {%- if error != blank -%}
+    <p id="{{ field_id }}-error" class="field-error">
+      <span aria-hidden="true">!</span><span class="sr-only">{{ 'general.error' | t }}</span>
+      {{ error }}
+    </p>
+  {%- endif -%}
+</div>
