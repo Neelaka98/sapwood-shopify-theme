@@ -17,19 +17,26 @@
     </div>
     <ul class="border-b border-ink lg:col-span-7 lg:col-start-6" role="list">
       {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.image != blank
+            assign row_grid = 'grid-cols-[4rem_1fr] gap-x-5 sm:grid-cols-[5rem_12rem_1fr] sm:gap-x-8'
+          else
+            assign row_grid = 'grid-cols-1 sm:grid-cols-[12rem_1fr] sm:gap-x-8'
+          endif
+        -%}
         <li
-          class="grid grid-cols-[4rem_1fr] gap-x-5 gap-y-2 border-t border-ink py-6 sm:grid-cols-[5rem_12rem_1fr] sm:items-center sm:gap-x-8 sm:py-8"
+          class="grid {{ row_grid }} gap-y-2 border-t border-ink py-6 sm:items-center sm:py-8"
           {{ block.shopify_attributes }}
         >
-          <div class="row-span-2 self-start sm:row-span-1 sm:self-center">
-            {%- if block.settings.image != blank -%}
+          {%- if block.settings.image != blank -%}
+            <div class="row-span-2 self-start sm:row-span-1 sm:self-center">
               {{
                 block.settings.image
                 | image_url: width: 160
                 | image_tag: widths: '80, 160', sizes: '80px', loading: 'lazy', alt: '', class: 'h-auto w-16 object-contain sm:w-20'
               }}
-            {%- endif -%}
-          </div>
+            </div>
+          {%- endif -%}
           <h3 class="text-card">
             {%- if block.settings.link != blank -%}
               <a href="{{ block.settings.link }}" class="underline underline-offset-4">{{ block.settings.title | escape }}</a>

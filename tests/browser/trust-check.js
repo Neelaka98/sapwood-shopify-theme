@@ -8,6 +8,7 @@
   rows.forEach((row) => {
     assert(row.querySelector('h3'), 'Each certification is named by an h3');
     const logo = row.querySelector('img');
+    if (!logo) assert(row.firstElementChild.tagName === 'H3', 'A certification without a logo has no empty logo cell');
     if (logo) assert(logo.getAttribute('alt') === '', 'Logos are decorative because the name sits beside them');
   });
 

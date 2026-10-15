@@ -38,10 +38,19 @@
           data-map-pin
         ></span>
         {%- if section.settings.pin_label != blank -%}
+          {%- liquid
+            # Past 60% the label would run off the map and cause sideways scroll on phones.
+            if section.settings.pin_x > 60
+              assign label_side = '-translate-x-[calc(100%+0.75rem)]'
+            else
+              assign label_side = 'translate-x-3'
+            endif
+          -%}
           <span
-            class="display-caps absolute translate-x-3 -translate-y-1/2 whitespace-nowrap text-base leading-none sm:text-lg"
+            class="display-caps absolute {{ label_side }} -translate-y-1/2 whitespace-nowrap text-base leading-none sm:text-lg"
             style="left: {{ section.settings.pin_x }}%; top: {{ section.settings.pin_y }}%"
             aria-hidden="true"
+            data-map-pin-label
           >
             {{- section.settings.pin_label | escape -}}
           </span>

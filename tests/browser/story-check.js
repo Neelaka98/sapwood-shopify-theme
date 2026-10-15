@@ -13,5 +13,16 @@
   assert(/^\d+(\.\d+)?%$/.test(pin.style.left) && /^\d+(\.\d+)?%$/.test(pin.style.top), 'The pin is placed in percent');
   assert(pin.getAttribute('aria-hidden') === 'true', 'The pin is hidden from screen readers; the image alt describes the place');
   assert(map.querySelector('figure figcaption'), 'The map caption is a figcaption');
+  const label = map.querySelector('[data-map-pin-label]');
+  assert(label, 'The pin has a label');
+  assert(label.getAttribute('aria-hidden') === 'true', 'The pin label is hidden from screen readers');
+  const pinBox = pin.getBoundingClientRect();
+  const labelBox = label.getBoundingClientRect();
+  if (parseFloat(pin.style.left) > 60) {
+    assert(labelBox.right <= pinBox.left, 'A pin right of 60% has its label on the left');
+  } else {
+    assert(labelBox.left >= pinBox.right, 'A pin at or left of 60% has its label on the right');
+  }
+  assert(document.documentElement.scrollWidth <= document.documentElement.clientWidth, 'The page does not scroll sideways');
   return 'story ok';
 })();
