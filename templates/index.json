@@ -80,7 +80,17 @@
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "color_scheme": "light"
       }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "question_1": { "type": "question", "settings": { "question": "How long does delivery take?", "answer": "<p>Say how long orders take to reach each place you ship to.</p>" } },
+        "question_2": { "type": "question", "settings": { "question": "How should I store it?", "answer": "<p>Say how to store it before and after opening.</p>" } },
+        "question_3": { "type": "question", "settings": { "question": "Do you sell to shops and restaurants?", "answer": "<p>Yes. Use the trade form below and we will reply with prices.</p>" } }
+      },
+      "block_order": ["question_1", "question_2", "question_3"],
+      "settings": { "heading": "Questions", "color_scheme": "light" }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq"]
 }

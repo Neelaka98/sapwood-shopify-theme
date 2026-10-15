@@ -49,6 +49,22 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "faq": {
+      "name": "FAQ",
+      "heading": "Heading",
+      "text": "Text",
+      "blocks": {
+        "question": {
+          "name": "Question",
+          "question": "Question",
+          "answer": "Answer"
+        }
+      }
+    },
+    "reviews": {
+      "name": "Reviews",
+      "info": "Add the block from your reviews app. Nothing shows until you do."
+    },
     "video": {
       "name": "Video",
       "heading": "Heading",

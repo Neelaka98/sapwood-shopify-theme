@@ -1,0 +1,62 @@
+{%- assign heading_id = 'Faq-' | append: section.id -%}
+<section
+  class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="{{ heading_id }}"
+  {% endif %}
+  data-faq
+>
+  <div class="wrap max-w-3xl">
+    {%- if section.settings.heading != blank -%}
+      <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="rte mt-4 text-lg">{{ section.settings.text }}</div>
+    {%- endif -%}
+    <div class="mt-8 border-t border-line">
+      {%- for block in section.blocks -%}
+        <details class="group border-b border-line" {{ block.shopify_attributes }}>
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+            <span>{{ block.settings.question | escape }}</span>
+            {% render 'icon',
+              name: 'plus',
+              size: 20,
+              class: 'shrink-0 transition-transform group-open:rotate-45 motion-reduce:transition-none'
+            %}
+          </summary>
+          <div class="rte max-w-prose pb-6">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.faq.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:sections.faq.heading", "default": "Questions" },
+    { "type": "richtext", "id": "text", "label": "t:sections.faq.text" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "t:sections.faq.blocks.question.name",
+      "settings": [
+        { "type": "text", "id": "question", "label": "t:sections.faq.blocks.question.question", "default": "How long does delivery take?" },
+        { "type": "richtext", "id": "answer", "label": "t:sections.faq.blocks.question.answer", "default": "<p>Say how long orders take to reach each place you ship to.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq.name",
+      "blocks": [
+        { "type": "question", "settings": { "question": "How long does delivery take?", "answer": "<p>Say how long orders take to reach each place you ship to.</p>" } },
+        { "type": "question", "settings": { "question": "How should I store it?", "answer": "<p>Say how to store it before and after opening.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

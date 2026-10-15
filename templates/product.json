@@ -21,7 +21,11 @@
       },
       "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "trade"],
       "settings": { "color_scheme": "light" }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": { "color_scheme": "light" }
     }
   },
-  "order": ["main"]
+  "order": ["main", "reviews"]
 }

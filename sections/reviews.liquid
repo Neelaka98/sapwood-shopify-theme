@@ -1,0 +1,21 @@
+{%- if section.blocks.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} py-12 lg:py-16">
+    <div class="wrap">
+      {%- for block in section.blocks -%}
+        {% render block %}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.reviews.name",
+  "settings": [
+    { "type": "paragraph", "content": "t:sections.reviews.info" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "t:sections.reviews.name" }]
+}
+{% endschema %}
