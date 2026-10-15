@@ -13,5 +13,6 @@
     assert(number.getAttribute('aria-hidden') === 'true', 'The visible number is hidden because the list already announces position');
     assert(step.getBoundingClientRect().height > 0, `Step ${i + 1} is visible`);
   });
+  assert([...document.querySelectorAll('h1,h2,h3,h4')].every((h) => h.textContent.trim() !== ''), 'The page has no empty headings');
   return 'process ok';
 })();

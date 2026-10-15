@@ -1,27 +1,29 @@
 {%- liquid
-  assign is_first = false
-  if section.index == 1
-    assign is_first = true
-  endif
   assign heading_tag = 'h2'
   assign image_loading = 'lazy'
   assign image_priority = 'auto'
-  if is_first
-    assign heading_tag = 'h1'
+  if section.index == 1
     assign image_loading = 'eager'
     assign image_priority = 'high'
+    if template.name == 'index'
+      assign heading_tag = 'h1'
+    endif
   endif
 -%}
 <section
   class="color-{{ section.settings.color_scheme }}"
-  aria-labelledby="Hero-{{ section.id }}"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="Hero-{{ section.id }}"
+  {% endif %}
   data-hero
 >
   <div class="wrap grid gap-8 py-10 lg:grid-cols-12 lg:items-center lg:gap-x-6 lg:py-16">
     <div class="lg:col-span-5">
-      <{{ heading_tag }} id="Hero-{{ section.id }}" class="text-[clamp(2.5rem,1.6rem+4vw,5.25rem)] leading-none">
-        {{- section.settings.heading | escape -}}
-      </{{ heading_tag }}>
+      {%- if section.settings.heading != blank -%}
+        <{{ heading_tag }} id="Hero-{{ section.id }}" class="text-[clamp(2.5rem,1.6rem+4vw,5.25rem)] leading-none">
+          {{- section.settings.heading | escape -}}
+        </{{ heading_tag }}>
+      {%- endif -%}
       {%- if section.settings.text != blank -%}
         <p class="mt-5 text-lg text-heading lg:text-xl">{{ section.settings.text }}</p>
       {%- endif -%}

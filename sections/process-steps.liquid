@@ -1,4 +1,10 @@
-{%- assign heading_id = 'Process-' | append: section.id -%}
+{%- liquid
+  assign heading_id = 'Process-' | append: section.id
+  assign step_tag = 'h2'
+  if section.settings.heading != blank
+    assign step_tag = 'h3'
+  endif
+-%}
 <section
   class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
   {% if section.settings.heading != blank %}
@@ -39,7 +45,9 @@
               </span>
               {{- block.settings.label | escape -}}
             </p>
-            <h3 class="mt-3">{{ block.settings.heading | escape }}</h3>
+            {%- if block.settings.heading != blank -%}
+              <{{ step_tag }} class="mt-3">{{ block.settings.heading | escape }}</{{ step_tag }}>
+            {%- endif -%}
             {%- if block.settings.text != blank -%}
               <p class="mt-4 max-w-[34ch]">{{ block.settings.text | escape | newline_to_br }}</p>
             {%- endif -%}

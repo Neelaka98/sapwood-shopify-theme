@@ -9,6 +9,7 @@
     assign title_tag = 'h3'
   endif
 -%}
+{%- if featured_product != blank or request.design_mode -%}
 <section
   class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
   aria-labelledby="{{ title_id }}"
@@ -57,6 +58,7 @@
     {%- endif -%}
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

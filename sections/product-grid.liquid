@@ -2,6 +2,10 @@
   assign heading_id = 'ProductGrid-' | append: section.id
   assign limit = section.settings.products_to_show
   assign grid_collection = section.settings.collection
+  assign card_tag = 'h2'
+  if section.settings.heading != blank
+    assign card_tag = 'h3'
+  endif
 -%}
 <section
   class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
@@ -26,7 +30,7 @@
           <li>
             {% render 'product-card',
               product: product,
-              heading_tag: 'h3',
+              heading_tag: card_tag,
               image_fit: section.settings.image_fit
             %}
           </li>
@@ -38,7 +42,7 @@
               <div class="aspect-square overflow-hidden bg-white">
                 {{ 'product-' | append: i | placeholder_svg_tag: 'size-full' }}
               </div>
-              <h3 class="mt-3 text-card">{{ 'onboarding.product_title' | t }}</h3>
+              <{{ card_tag }} class="mt-3 text-card">{{ 'onboarding.product_title' | t }}</{{ card_tag }}>
               <p class="tabular mt-1">{{ 1999 | money }}</p>
             </article>
           </li>

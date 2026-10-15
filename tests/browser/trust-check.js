@@ -17,5 +17,7 @@
   const items = strip.querySelectorAll('ul > li');
   assert(items.length >= 2, 'Each trust block is a list item');
   assert([...items].every((item) => item.textContent.trim() !== ''), 'Every trust item has text');
+  assert([...document.querySelectorAll('h1,h2,h3,h4')].every((h) => h.textContent.trim() !== ''), 'The page has no empty headings');
+  assert([...certs.querySelectorAll('a')].every((a) => a.textContent.trim() !== ''), 'Certifications have no empty links');
   return 'trust ok';
 })();

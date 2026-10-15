@@ -1,4 +1,10 @@
-{%- assign heading_id = 'Certifications-' | append: section.id -%}
+{%- liquid
+  assign heading_id = 'Certifications-' | append: section.id
+  assign title_tag = 'h2'
+  if section.settings.heading != blank
+    assign title_tag = 'h3'
+  endif
+-%}
 <section
   class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
   {% if section.settings.heading != blank %}
@@ -37,13 +43,15 @@
               }}
             </div>
           {%- endif -%}
-          <h3 class="text-card">
-            {%- if block.settings.link != blank -%}
-              <a href="{{ block.settings.link }}" class="underline underline-offset-4">{{ block.settings.title | escape }}</a>
-            {%- else -%}
-              {{ block.settings.title | escape }}
-            {%- endif -%}
-          </h3>
+          {%- if block.settings.title != blank -%}
+            <{{ title_tag }} class="text-card">
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="underline underline-offset-4">{{ block.settings.title | escape }}</a>
+              {%- else -%}
+                {{ block.settings.title | escape }}
+              {%- endif -%}
+            </{{ title_tag }}>
+          {%- endif -%}
           {%- if block.settings.text != blank -%}
             <p class="text-heading">{{ block.settings.text | escape }}</p>
           {%- endif -%}
