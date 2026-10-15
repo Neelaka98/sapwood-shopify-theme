@@ -49,6 +49,12 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "featured_product": {
+      "name": "Featured product",
+      "heading": "Heading",
+      "product": "Product",
+      "max_quantity": "Largest quantity per add"
+    },
     "image_with_text": {
       "name": "Image with text",
       "image": "Image",

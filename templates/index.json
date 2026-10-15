@@ -45,7 +45,11 @@
       },
       "block_order": ["step_1", "step_2", "step_3", "step_4"],
       "settings": { "heading": "From field to jar", "color_scheme": "dark" }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "settings": { "heading": "Our best seller", "product": "kithul-treacle", "max_quantity": 20, "color_scheme": "band" }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product"]
 }

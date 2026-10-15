@@ -4,7 +4,7 @@
 
   @param {object} product - The product
   @param {string} form_id - Id of the product form, used to keep radio names unique per section
-  @param {object} block - The variant picker block
+  @param {object} block - The variant picker block, or the section that holds the picker
 {% enddoc %}
 {%- unless product.has_only_default_variant -%}
   <div class="product-options" data-variant-picker {{ block.shopify_attributes }}>

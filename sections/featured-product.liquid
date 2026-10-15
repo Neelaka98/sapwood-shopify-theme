@@ -1,0 +1,72 @@
+{%- liquid
+  assign featured_product = section.settings.product
+  assign current_variant = featured_product.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+  assign title_id = 'FeaturedProduct-' | append: section.id
+  assign media = current_variant.featured_media | default: featured_product.featured_media
+  assign title_tag = 'h2'
+  if section.settings.heading != blank
+    assign title_tag = 'h3'
+  endif
+-%}
+<section
+  class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
+  aria-labelledby="{{ title_id }}"
+  data-featured-product
+  data-product-root
+>
+  <div class="wrap">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="mb-8">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if featured_product == blank -%}
+      <p id="{{ title_id }}">{{ 'onboarding.featured_product' | t }}</p>
+    {%- else -%}
+      <div class="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center md:gap-10">
+        <div class="aspect-square overflow-hidden bg-white">
+          {%- if media -%}
+            {{
+              media
+              | image_url: width: 900
+              | image_tag:
+                widths: '360, 540, 720, 900',
+                sizes: '(min-width: 48rem) 40vw, 100vw',
+                loading: 'lazy',
+                class: 'size-full object-contain'
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'size-full' }}
+          {%- endif -%}
+        </div>
+        <div class="flex min-w-0 flex-col gap-4">
+          <{{ title_tag }} id="{{ title_id }}" class="text-card">{{ featured_product.title | escape }}</{{ title_tag }}>
+          {% render 'product-price', variant: current_variant %}
+          <a href="{{ featured_product.url }}" class="inline-flex min-h-11 items-center self-start underline underline-offset-4">
+            {{- 'products.details' | t -}}
+          </a>
+          {% render 'variant-picker', product: featured_product, form_id: form_id, block: section %}
+          {% render 'buy-buttons',
+            product: featured_product,
+            current_variant: current_variant,
+            form_id: form_id,
+            block: section
+          %}
+        </div>
+      </div>
+      {% render 'product-variants-json', product: featured_product %}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.featured_product.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:sections.featured_product.heading", "default": "Our best seller" },
+    { "type": "product", "id": "product", "label": "t:sections.featured_product.product" },
+    { "type": "range", "id": "max_quantity", "label": "t:sections.featured_product.max_quantity", "min": 1, "max": 99, "step": 1, "default": 20 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "band" }
+  ],
+  "presets": [{ "name": "t:sections.featured_product.name" }]
+}
+{% endschema %}

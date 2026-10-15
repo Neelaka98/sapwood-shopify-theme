@@ -47,9 +47,11 @@ registerSection('[data-product-root]', (root, signal) => {
     if (label) label.textContent = variant.available ? strings.addToCart : strings.soldOut;
     renderPrice(root, variant);
     if (variant.mediaId !== null) showMedia(String(variant.mediaId));
-    const url = new URL(location.href);
-    url.searchParams.set('variant', String(variant.id));
-    history.replaceState(history.state, '', url);
+    if (root.hasAttribute('data-updates-url')) {
+      const url = new URL(location.href);
+      url.searchParams.set('variant', String(variant.id));
+      history.replaceState(history.state, '', url);
+    }
   }
 
   radios.forEach((radio) => radio.addEventListener('change', update, { signal }));
