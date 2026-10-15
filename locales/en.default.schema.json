@@ -72,6 +72,21 @@
       "caption": "Caption",
       "caption_info": "For example the map's source and licence."
     },
+    "process_steps": {
+      "name": "Process steps",
+      "heading": "Heading",
+      "blocks": {
+        "step": {
+          "name": "Step",
+          "image": "Image",
+          "label": "Small label",
+          "heading": "Heading",
+          "text": "Text",
+          "link_label": "Link label",
+          "link": "Link"
+        }
+      }
+    },
     "hero": {
       "name": "Hero",
       "image": "Image",

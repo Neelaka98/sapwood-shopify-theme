@@ -1,0 +1,91 @@
+{%- assign heading_id = 'Process-' | append: section.id -%}
+<section
+  class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="{{ heading_id }}"
+  {% endif %}
+  data-process
+>
+  <div class="wrap">
+    {%- if section.settings.heading != blank -%}
+      <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ol class="mt-10 grid gap-14 lg:gap-20" role="list">
+      {%- for block in section.blocks -%}
+        {%- capture padded -%}0{{ forloop.index }}{%- endcapture -%}
+        <li
+          class="grid gap-5 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-center md:gap-10"
+          {{ block.shopify_attributes }}
+        >
+          <div class="overflow-hidden">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1280
+                | image_tag:
+                  widths: '480, 720, 960, 1280',
+                  sizes: '(min-width: 64rem) 58vw, (min-width: 48rem) 55vw, 92vw',
+                  loading: 'lazy',
+                  class: 'aspect-[3/2] w-full object-cover'
+              }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'aspect-[3/2] w-full bg-tint' }}
+            {%- endif -%}
+          </div>
+          <div>
+            <p class="flex items-baseline gap-4 text-sm text-muted">
+              <span class="font-display text-[1.75rem] text-heading" aria-hidden="true" data-step-number>
+                {{- padded | slice: -2, 2 -}}
+              </span>
+              {{- block.settings.label | escape -}}
+            </p>
+            <h3 class="mt-3">{{ block.settings.heading | escape }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="mt-4 max-w-[34ch]">{{ block.settings.text | escape | newline_to_br }}</p>
+            {%- endif -%}
+            {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="mt-3 inline-flex min-h-11 items-center text-muted underline-offset-4 hover:underline">
+                {{- block.settings.link_label | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.process_steps.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:sections.process_steps.heading", "default": "From field to jar" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "dark" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "t:sections.process_steps.blocks.step.name",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "t:sections.process_steps.blocks.step.image" },
+        { "type": "text", "id": "label", "label": "t:sections.process_steps.blocks.step.label", "default": "By hand" },
+        { "type": "text", "id": "heading", "label": "t:sections.process_steps.blocks.step.heading", "default": "Picking" },
+        { "type": "textarea", "id": "text", "label": "t:sections.process_steps.blocks.step.text", "default": "Say what happens at this step, in one or two sentences." },
+        { "type": "text", "id": "link_label", "label": "t:sections.process_steps.blocks.step.link_label" },
+        { "type": "url", "id": "link", "label": "t:sections.process_steps.blocks.step.link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.process_steps.name",
+      "blocks": [
+        { "type": "step", "settings": { "label": "By hand", "heading": "Picking" } },
+        { "type": "step", "settings": { "label": "The same day", "heading": "Preparing" } },
+        { "type": "step", "settings": { "label": "Over a slow fire", "heading": "Cooking" } },
+        { "type": "step", "settings": { "label": "Ready for your table", "heading": "Packing" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

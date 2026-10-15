@@ -34,7 +34,18 @@
         "caption": "Map: your source and licence here",
         "color_scheme": "light"
       }
+    },
+    "process_steps": {
+      "type": "process-steps",
+      "blocks": {
+        "step_1": { "type": "step", "settings": { "label": "By hand", "heading": "Picking", "text": "Say what happens at this step, in one or two sentences." } },
+        "step_2": { "type": "step", "settings": { "label": "The same day", "heading": "Preparing", "text": "Say what happens at this step, in one or two sentences." } },
+        "step_3": { "type": "step", "settings": { "label": "Over a slow fire", "heading": "Cooking", "text": "Say what happens at this step, in one or two sentences." } },
+        "step_4": { "type": "step", "settings": { "label": "Ready for your table", "heading": "Packing", "text": "Say what happens at this step, in one or two sentences.", "link_label": "See the range", "link": "shopify://collections/shop" } }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4"],
+      "settings": { "heading": "From field to jar", "color_scheme": "dark" }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps"]
 }
