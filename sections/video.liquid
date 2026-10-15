@@ -29,7 +29,7 @@
           | video_tag: image_size: '1600x', controls: true, preload: 'none', playsinline: true, class: 'size-full object-cover'
         }}
       {%- elsif embed_url -%}
-        <a href="{{ external }}" class="group block size-full" data-video-embed>
+        <a href="{{ external | escape }}" class="group block size-full" data-video-embed>
           {%- if section.settings.cover_image != blank -%}
             {{
               section.settings.cover_image
@@ -51,7 +51,7 @@
         </a>
         <template data-video-frame>
           <iframe
-            src="{{ embed_url }}"
+            src="{{ embed_url | escape }}"
             title="{{ frame_title | escape }}"
             class="absolute inset-0 size-full"
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
