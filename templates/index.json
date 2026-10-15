@@ -72,7 +72,15 @@
         "text": "<p>The standards we are checked against.</p>",
         "color_scheme": "light"
       }
+    },
+    "video": {
+      "type": "video",
+      "settings": {
+        "heading": "See how it is made",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "color_scheme": "light"
+      }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video"]
 }

@@ -28,3 +28,19 @@ registerSection('[data-hero-video]', (root, signal) => {
   if (!reducedMotion.matches) video.play().catch(() => {});
   sync();
 });
+
+registerSection('[data-video-root]', (root, signal) => {
+  const link = root.querySelector<HTMLAnchorElement>('[data-video-embed]');
+  const template = root.querySelector<HTMLTemplateElement>('[data-video-frame]');
+  if (!link || !template) return;
+  link.addEventListener(
+    'click',
+    (event) => {
+      event.preventDefault();
+      link.replaceWith(template.content.cloneNode(true));
+      // The link that had focus is gone; moving focus to the player keeps keyboard users in place.
+      root.querySelector('iframe')?.focus();
+    },
+    { signal },
+  );
+});

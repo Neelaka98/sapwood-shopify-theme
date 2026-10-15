@@ -81,6 +81,7 @@
     "payment_methods": "Payment methods"
   },
   "video": {
+    "title": "Video",
     "play": "Play video",
     "pause": "Pause video"
   },

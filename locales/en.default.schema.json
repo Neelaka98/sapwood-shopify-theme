@@ -49,6 +49,15 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "video": {
+      "name": "Video",
+      "heading": "Heading",
+      "video": "Shopify-hosted video",
+      "video_url": "YouTube or Vimeo link",
+      "video_url_info": "Used when no Shopify-hosted video is chosen.",
+      "cover_image": "Cover image",
+      "cover_image_info": "Shown over a YouTube or Vimeo video until it is played."
+    },
     "certifications": {
       "name": "Certifications",
       "heading": "Heading",
