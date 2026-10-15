@@ -554,7 +554,7 @@ In `locales/en.default.schema.json`, add under `"sections"`:
 {% endschema %}
 ```
 
-The pin label sits right of the pin, so a pin near the right edge pushes its label past the map. That is fine on the default placement; the README in Task 10 tells merchants to keep labelled pins in the left two thirds.
+Superseded during execution: the label now flips to the left of the pin when `pin_x` is above 60 (commit 1373035), so it never pushes the page wider on a phone.
 
 - [ ] **Step 6: Add both to the homepage**
 
@@ -1896,7 +1896,7 @@ Ported from the concept's `src/components/home/Wholesale.astro` and `WholesaleFo
   const assert = (ok, message) => { if (!ok) throw Error(message); };
   const form = document.querySelector('form[id^="ContactForm-"]');
   assert(form, 'Contact form renders');
-  assert(form.getAttribute('action').endsWith('/contact'), 'It posts to the contact endpoint');
+  assert(new URL(form.action).pathname.endsWith('/contact'), 'It posts to the contact endpoint');
   assert(form.querySelector('input[name="form_type"][value="contact"]'), 'It is a Shopify contact form');
   const email = form.querySelector('input[name="contact[email]"]');
   assert(email && email.type === 'email' && email.required, 'Email is required and typed');
@@ -2233,7 +2233,7 @@ A Shopify Online Store 2.0 theme for small producers who sell what they make.
 |---|---|
 | Hero | The first section on a page renders its heading as the page's `h1`, and loads its image eagerly. A Shopify video replaces the image, plays muted and has a pause button; it stays paused for visitors who ask for reduced motion. |
 | Image with text | Image left or right of a heading, rich text and a link. |
-| Origin map | Upload a map image and set the pin in percent. Screen readers skip the pin, so describe the place in the image's alt text. Keep a labelled pin in the left two thirds, because the label sits to its right. |
+| Origin map | Upload a map image and set the pin in percent. Screen readers skip the pin, so describe the place in the image's alt text. The pin label sits right of the pin, and moves to its left when the pin is more than 60 percent across. |
 | Process steps | One block per step, stacked. |
 | Featured product | Uses the product page's price, variant picker and add to cart. Does not change the page address when a variant is picked. |
 | Product grid | Collection, 2 to 6 products, and whether card images show whole or fill the card. |
