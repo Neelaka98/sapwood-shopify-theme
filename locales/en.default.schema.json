@@ -49,6 +49,30 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "certifications": {
+      "name": "Certifications",
+      "heading": "Heading",
+      "text": "Text",
+      "blocks": {
+        "certification": {
+          "name": "Certification",
+          "image": "Logo",
+          "title": "Name",
+          "text": "Text",
+          "link": "Link",
+          "link_info": "For example the certificate or the certifier's register entry."
+        }
+      }
+    },
+    "trust_strip": {
+      "name": "Trust strip",
+      "blocks": {
+        "item": {
+          "name": "Text",
+          "text": "Text"
+        }
+      }
+    },
     "featured_product": {
       "name": "Featured product",
       "heading": "Heading",

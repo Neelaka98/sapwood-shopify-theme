@@ -1,0 +1,39 @@
+<div class="color-{{ section.settings.color_scheme }}" data-trust-strip>
+  <ul
+    class="wrap flex flex-wrap items-center justify-center gap-x-10 gap-y-2 py-4 text-center text-sm font-semibold"
+    role="list"
+  >
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.trust_strip.name",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "band" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:sections.trust_strip.blocks.item.name",
+      "settings": [
+        { "type": "inline_richtext", "id": "text", "label": "t:sections.trust_strip.blocks.item.text", "default": "Packed by hand" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.trust_strip.name",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Packed by hand" } },
+        { "type": "item", "settings": { "text": "Ships worldwide" } },
+        { "type": "item", "settings": { "text": "Trade prices on request" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

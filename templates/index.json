@@ -49,7 +49,30 @@
     "featured_product": {
       "type": "featured-product",
       "settings": { "heading": "Our best seller", "product": "kithul-treacle", "max_quantity": 20, "color_scheme": "band" }
+    },
+    "trust_strip": {
+      "type": "trust-strip",
+      "blocks": {
+        "item_1": { "type": "item", "settings": { "text": "Packed by hand" } },
+        "item_2": { "type": "item", "settings": { "text": "Ships worldwide" } },
+        "item_3": { "type": "item", "settings": { "text": "Trade prices on request" } }
+      },
+      "block_order": ["item_1", "item_2", "item_3"],
+      "settings": { "color_scheme": "band" }
+    },
+    "certifications": {
+      "type": "certifications",
+      "blocks": {
+        "cert_1": { "type": "certification", "settings": { "title": "Food safety certificate", "text": "Say what the certificate covers and who issued it." } },
+        "cert_2": { "type": "certification", "settings": { "title": "Export licence", "text": "Say what the licence covers and who issued it." } }
+      },
+      "block_order": ["cert_1", "cert_2"],
+      "settings": {
+        "heading": "Quality and certifications",
+        "text": "<p>The standards we are checked against.</p>",
+        "color_scheme": "light"
+      }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications"]
 }
