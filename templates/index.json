@@ -99,7 +99,18 @@
         "trade_fields": true,
         "color_scheme": "light"
       }
+    },
+    "product_grid": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "The range",
+        "text": "<p>Everything we make, in the sizes we sell.</p>",
+        "collection": "shop",
+        "products_to_show": 4,
+        "image_fit": "contain",
+        "color_scheme": "light"
+      }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq", "wholesale"]
+  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq", "wholesale", "product_grid"]
 }

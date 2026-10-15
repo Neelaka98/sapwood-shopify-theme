@@ -49,6 +49,16 @@
     "all": {
       "color_scheme": "Colour scheme"
     },
+    "product_grid": {
+      "name": "Product grid",
+      "heading": "Heading",
+      "text": "Text",
+      "collection": "Collection",
+      "products_to_show": "Products to show",
+      "image_fit": "Card images",
+      "contain": "Show the whole image",
+      "cover": "Fill the card"
+    },
     "contact_form": {
       "name": "Contact form",
       "wholesale_preset": "Wholesale inquiry",
