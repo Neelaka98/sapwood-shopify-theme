@@ -1,6 +1,6 @@
 # Sapwood
 
-A Shopify Online Store 2.0 theme for small producers who sell what they make. Working name.
+A Shopify Online Store 2.0 theme for small producers who sell what they make.
 
 ## Setup
 
@@ -48,6 +48,23 @@ Defaults: heading `jost_n7` and body `jost_n4`, from Shopify's font library. The
 
 - The header's country selector keeps a visible Update button. Submitting on change fails WCAG 2.1 SC 3.2.2 (On Input).
 - `snippets/product-card.liquid` takes a `heading_tag` parameter. Pass `h2` on pages that already have an `h1`, and `h3` under an `h2` section heading, so the heading order stays correct.
+
+## Sections
+
+| Section | Notes |
+|---|---|
+| Hero | The first section on a page renders its heading as the page's `h1`, and loads its image eagerly. A Shopify video replaces the image, plays muted and has a pause button; it stays paused for visitors who ask for reduced motion. |
+| Image with text | Image left or right of a heading, rich text and a link. |
+| Origin map | Upload a map image and set the pin in percent. Screen readers skip the pin, so describe the place in the image's alt text. The pin label sits right of the pin, and moves to its left when the pin is more than 60 percent across. |
+| Process steps | One block per step, stacked. |
+| Featured product | Uses the product page's price, variant picker and add to cart. Does not change the page address when a variant is picked. |
+| Product grid | Collection, 2 to 6 products, and whether card images show whole or fill the card. |
+| Certifications | Logo, name, text and link per block. Logos are decorative because the name is beside them. |
+| Trust strip | Up to 6 short text blocks in one row. |
+| Video | Shopify video with native controls, or a YouTube or Vimeo link behind a cover image. The player only loads when the visitor presses play, and without JavaScript the cover links to the video's own site. |
+| FAQ | Question and answer blocks as `<details>`. |
+| Reviews | An app block slot on the product template. Renders nothing until a reviews app block is added. |
+| Contact form | Name, email, phone and message. With "Ask for business details" on, it asks for business name, email, country, volume and message instead, for wholesale inquiries. Both send to the store's sender email. |
 
 ## Tests
 

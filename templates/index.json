@@ -112,5 +112,17 @@
       }
     }
   },
-  "order": ["hero", "image_with_text", "origin_map", "process_steps", "featured_product", "trust_strip", "certifications", "video", "faq", "wholesale", "product_grid"]
+  "order": [
+    "hero",
+    "trust_strip",
+    "featured_product",
+    "product_grid",
+    "image_with_text",
+    "origin_map",
+    "process_steps",
+    "certifications",
+    "video",
+    "faq",
+    "wholesale"
+  ]
 }
