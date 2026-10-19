@@ -83,15 +83,17 @@ export function runStage(section: HTMLElement): () => void {
     if (button) show(Number(button.dataset.processGo));
   };
   // The editor scrolls the selected block into view itself; waiting a frame lets the stage's scroll win.
+  let pendingFrame = 0;
   const onBlockSelect = (event: Event) => {
     const index = steps.indexOf(event.target as HTMLElement);
-    if (index !== -1) requestAnimationFrame(() => show(index));
+    if (index !== -1) pendingFrame = requestAnimationFrame(() => show(index));
   };
   navigation.addEventListener('click', onClick);
   document.addEventListener('shopify:block:select', onBlockSelect);
   select(0);
 
   return () => {
+    cancelAnimationFrame(pendingFrame);
     navigation.removeEventListener('click', onClick);
     document.removeEventListener('shopify:block:select', onBlockSelect);
     section.removeAttribute('data-process-ready');
