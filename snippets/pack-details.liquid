@@ -1,0 +1,78 @@
+{% doc %}
+  Pack details from the product's and its variants' custom metafields (see the README). Every variant's details
+  are printed once and product.ts shows the selected variant's, so changing variant needs no request. Renders
+  nothing when none of the metafields are set.
+
+  @param {object} product - The product
+  @param {object} current_variant - The variant whose details show on load
+  @param {object} block - The pack details block, for its heading and the theme editor's attributes
+{% enddoc %}
+{%- liquid
+  assign shelf_life = product.metafields.custom.shelf_life_months.value
+  assign has_details = false
+  if shelf_life != blank
+    assign has_details = true
+  endif
+  for variant in product.variants
+    if variant.metafields.custom.closure != blank or variant.metafields.custom.gross_weight_kg != blank or variant.metafields.custom.carton != blank
+      assign has_details = true
+      break
+    endif
+  endfor
+-%}
+{%- if has_details -%}
+  <div class="product-details" data-pack-details {{ block.shopify_attributes }}>
+    <h2>{{ block.settings.heading | escape }}</h2>
+    {%- if shelf_life != blank -%}
+      <dl>
+        <div>
+          <dt>{{ 'products.pack.shelf_life' | t }}</dt>
+          <dd>{{ 'products.pack.months' | t: count: shelf_life }}</dd>
+        </div>
+      </dl>
+    {%- endif -%}
+    {%- for variant in product.variants -%}
+      {%- liquid
+        assign closure = variant.metafields.custom.closure.value
+        assign gross_weight = variant.metafields.custom.gross_weight_kg.value
+        assign carton = variant.metafields.custom.carton.value
+      -%}
+      {%- if closure != blank or gross_weight != blank or carton != blank -%}
+        <dl data-variant-panel="{{ variant.id }}" {% if variant.id != current_variant.id %}hidden{% endif %}>
+          {%- if closure != blank -%}
+            <div>
+              <dt>{{ 'products.pack.closure' | t }}</dt>
+              <dd>{{ closure | escape }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if gross_weight != blank -%}
+            <div>
+              <dt>{{ 'products.pack.gross_weight' | t }}</dt>
+              <dd>{{ 'products.pack.kilograms' | t: amount: gross_weight }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if carton != blank -%}
+            <div>
+              <dt>{{ 'products.pack.carton' | t }}</dt>
+              <dd>
+                {{-
+                  'products.pack.carton_contents'
+                  | t: units: carton.units.value, gross: carton.gross_kg.value, net: carton.net_kg.value
+                -}}
+              </dd>
+            </div>
+            <div>
+              <dt>{{ 'products.pack.carton_size' | t }}</dt>
+              <dd>
+                {{-
+                  'products.pack.millimetres'
+                  | t: length: carton.length_mm.value, width: carton.width_mm.value, height: carton.height_mm.value
+                -}}
+              </dd>
+            </div>
+          {%- endif -%}
+        </dl>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}

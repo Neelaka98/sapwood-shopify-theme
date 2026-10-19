@@ -235,6 +235,11 @@
           "info": "Shows the product's nutrition metafield (custom.nutrition) as a table. Shows nothing when it is empty.",
           "heading": "Heading"
         },
+        "pack_details": {
+          "name": "Pack details",
+          "info": "Shows shelf life (custom.shelf_life_months) and, for the selected variant, closure, gross weight and carton (custom.closure, custom.gross_weight_kg, custom.carton). Shows nothing when all are empty.",
+          "heading": "Heading"
+        },
         "how_to_use": {
           "name": "How to use",
           "info": "Shows the product's how to use metafield (custom.how_to_use), one step per entry. Shows nothing when it is empty.",

@@ -58,7 +58,21 @@
     "close_viewer": "Close",
     "image_count": "Image {{ index }} of {{ count }}",
     "show_image": "Show image {{ index }} of {{ count }}",
-    "details": "Product details"
+    "details": "Product details",
+    "pack": {
+      "shelf_life": "Shelf life",
+      "months": {
+        "one": "{{ count }} month",
+        "other": "{{ count }} months"
+      },
+      "closure": "Closure",
+      "gross_weight": "Gross weight",
+      "kilograms": "{{ amount }} kg",
+      "carton": "Carton",
+      "carton_contents": "{{ units }} units, {{ gross }} kg gross, {{ net }} kg net",
+      "carton_size": "Carton size",
+      "millimetres": "{{ length }} × {{ width }} × {{ height }} mm"
+    }
   },
   "collections": {
     "empty": "No products in this collection yet."

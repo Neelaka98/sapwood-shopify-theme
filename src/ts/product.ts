@@ -46,6 +46,9 @@ registerSection('[data-product-root]', (root, signal) => {
     if (button) button.disabled = !variant.available;
     if (label) label.textContent = variant.available ? strings.addToCart : strings.soldOut;
     renderPrice(root, variant);
+    root.querySelectorAll<HTMLElement>('[data-variant-panel]').forEach((panel) => {
+      panel.hidden = panel.dataset.variantPanel !== String(variant.id);
+    });
     if (variant.mediaId !== null) showMedia(String(variant.mediaId));
     if (root.hasAttribute('data-updates-url')) {
       const url = new URL(location.href);

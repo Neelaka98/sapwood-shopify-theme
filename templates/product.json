@@ -10,6 +10,7 @@
         "buy_buttons": { "type": "buy_buttons", "settings": { "max_quantity": 20 } },
         "description": { "type": "description" },
         "nutrition": { "type": "nutrition", "settings": { "heading": "Nutrition" } },
+        "pack_details": { "type": "pack_details", "settings": { "heading": "Pack details" } },
         "how_to_use": { "type": "how_to_use", "settings": { "heading": "How to use it" } },
         "trade": {
           "type": "link",
@@ -21,7 +22,7 @@
           }
         }
       },
-      "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "nutrition", "how_to_use", "trade"],
+      "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "nutrition", "pack_details", "how_to_use", "trade"],
       "settings": { "color_scheme": "light" }
     },
     "faq": {

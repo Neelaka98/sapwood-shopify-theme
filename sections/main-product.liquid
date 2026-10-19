@@ -62,6 +62,8 @@
                   </table>
                 </div>
               {%- endif -%}
+            {%- when 'pack_details' -%}
+              {% render 'pack-details', product: product, current_variant: current_variant, block: block %}
             {%- when 'how_to_use' -%}
               {%- assign usage_steps = product.metafields.custom.how_to_use.value -%}
               {%- if usage_steps != blank -%}
@@ -142,6 +144,15 @@
       "settings": [
         { "type": "paragraph", "content": "t:sections.main_product.blocks.nutrition.info" },
         { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.nutrition.heading", "default": "Nutrition" }
+      ]
+    },
+    {
+      "type": "pack_details",
+      "name": "t:sections.main_product.blocks.pack_details.name",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "t:sections.main_product.blocks.pack_details.info" },
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.pack_details.heading", "default": "Pack details" }
       ]
     },
     {
