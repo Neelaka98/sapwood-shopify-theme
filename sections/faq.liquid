@@ -1,35 +1,41 @@
-{%- assign heading_id = 'Faq-' | append: section.id -%}
-<section
-  class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
-  {% if section.settings.heading != blank %}
-    aria-labelledby="{{ heading_id }}"
-  {% endif %}
-  data-faq
->
-  <div class="wrap max-w-3xl">
-    {%- if section.settings.heading != blank -%}
-      <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
-    {%- endif -%}
-    {%- if section.settings.text != blank -%}
-      <div class="rte mt-4 text-lg">{{ section.settings.text }}</div>
-    {%- endif -%}
-    <div class="mt-8 border-t border-line">
-      {%- for block in section.blocks -%}
-        <details class="group border-b border-line" {{ block.shopify_attributes }}>
-          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
-            <span>{{ block.settings.question | escape }}</span>
-            {% render 'icon',
-              name: 'plus',
-              size: 20,
-              class: 'shrink-0 transition-transform group-open:rotate-45 motion-reduce:transition-none'
-            %}
-          </summary>
-          <div class="rte max-w-prose pb-6">{{ block.settings.answer }}</div>
-        </details>
-      {%- endfor -%}
+{%- liquid
+  assign heading_id = 'Faq-' | append: section.id
+  assign from_product = false
+  if section.settings.use_product_faq and product
+    assign from_product = true
+    assign entries = product.metafields.custom.faq.value
+  endif
+-%}
+{%- unless from_product and entries == blank -%}
+  <section
+    class="color-{{ section.settings.color_scheme }} py-16 lg:py-24"
+    {% if section.settings.heading != blank %}
+      aria-labelledby="{{ heading_id }}"
+    {% endif %}
+    data-faq
+  >
+    <div class="wrap max-w-3xl">
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="rte mt-4 text-lg">{{ section.settings.text }}</div>
+      {%- endif -%}
+      <div class="mt-8 border-t border-line">
+        {%- if from_product -%}
+          {%- for entry in entries -%}
+            {%- assign answer = entry.answer | metafield_tag -%}
+            {% render 'faq-item', question: entry.question.value, answer: answer %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {% render 'faq-item', question: block.settings.question, answer: block.settings.answer, block: block %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+{%- endunless -%}
 
 {% schema %}
 {
@@ -37,6 +43,7 @@
   "settings": [
     { "type": "text", "id": "heading", "label": "t:sections.faq.heading", "default": "Questions" },
     { "type": "richtext", "id": "text", "label": "t:sections.faq.text" },
+    { "type": "checkbox", "id": "use_product_faq", "label": "t:sections.faq.use_product_faq", "info": "t:sections.faq.use_product_faq_info", "default": false },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "light" }
   ],
   "blocks": [

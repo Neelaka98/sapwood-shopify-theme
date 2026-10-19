@@ -1,0 +1,18 @@
+{% doc %}
+  One FAQ question as a details element.
+
+  @param {string} question - The question, as plain text
+  @param {string} answer - The answer, as HTML
+  @param {object} [block] - The block it came from, for the theme editor's attributes
+{% enddoc %}
+<details class="group border-b border-line" {{ block.shopify_attributes }}>
+  <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+    <span>{{ question | escape }}</span>
+    {% render 'icon',
+      name: 'plus',
+      size: 20,
+      class: 'shrink-0 transition-transform group-open:rotate-45 motion-reduce:transition-none'
+    %}
+  </summary>
+  <div class="rte max-w-prose pb-6">{{ answer }}</div>
+</details>

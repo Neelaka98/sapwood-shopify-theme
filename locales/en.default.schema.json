@@ -71,6 +71,8 @@
       "name": "FAQ",
       "heading": "Heading",
       "text": "Text",
+      "use_product_faq": "Use the product's FAQ",
+      "use_product_faq_info": "On product pages, shows the product's FAQ metafield (custom.faq) in place of the questions below, and nothing when the product has none. Other pages always show the questions below.",
       "blocks": {
         "question": {
           "name": "Question",
