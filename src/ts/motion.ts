@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { registerSection } from './sections.ts';
+import { PROCESS_STAGE, runStage } from './process-stage.ts';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -56,6 +57,7 @@ function revealGroups(root: HTMLElement) {
 /**
  * Scroll-driven motion. layout/theme.liquid only loads this file when the motion setting is on and the visitor has
  * not asked for reduced motion; the MOTION query also reverts everything if they turn it on with the page open.
+ * Process steps pin on wide screens (process-stage.ts).
  */
 registerSection('main .shopify-section > *', (root, signal) => {
   const mm = gsap.matchMedia();
@@ -63,6 +65,7 @@ registerSection('main .shopify-section > *', (root, signal) => {
     revealHeadings(root);
     revealGroups(root);
   });
+  if (root.matches('[data-process]')) mm.add(PROCESS_STAGE, () => runStage(root));
   signal.addEventListener('abort', () => mm.revert());
 });
 

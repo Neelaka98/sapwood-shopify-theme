@@ -14,5 +14,9 @@
     assert(step.getBoundingClientRect().height > 0, `Step ${i + 1} is visible`);
   });
   assert([...document.querySelectorAll('h1,h2,h3,h4')].every((h) => h.textContent.trim() !== ''), 'The page has no empty headings');
+  assert(!section.hasAttribute('data-process-ready'), 'The steps are stacked, not staged');
+  assert(!section.parentElement.classList.contains('pin-spacer'), 'Nothing is pinned');
+  const navigation = section.querySelector('[data-process-navigation]');
+  assert(!navigation || navigation.hidden, 'Step buttons only show while staged');
   return 'process ok';
 })();

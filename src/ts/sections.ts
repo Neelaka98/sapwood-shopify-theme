@@ -1,6 +1,6 @@
 type SectionInit = (root: HTMLElement, signal: AbortSignal) => void;
 
-const controllers = new WeakMap<HTMLElement, AbortController>();
+const controllers = new Map<HTMLElement, AbortController>();
 
 /**
  * Runs `init` for every element matching `selector`, and again for matches inside a section the theme editor
@@ -19,10 +19,13 @@ export function registerSection(selector: string, init: SectionInit): void {
 
   document.querySelectorAll<HTMLElement>(selector).forEach(start);
   document.addEventListener('shopify:section:load', (event) => within(event, start));
-  document.addEventListener('shopify:section:unload', (event) =>
-    within(event, (root) => {
-      controllers.get(root)?.abort();
+  // Matches by containment, not by selector: a root can be moved by a script (ScrollTrigger pins wrap it in a
+  // spacer), after which the selector no longer finds it.
+  document.addEventListener('shopify:section:unload', (event) => {
+    for (const [root, controller] of controllers) {
+      if (!(event.target as HTMLElement).contains(root)) continue;
+      controller.abort();
       controllers.delete(root);
-    }),
-  );
+    }
+  });
 }

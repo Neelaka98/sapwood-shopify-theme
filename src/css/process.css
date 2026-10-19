@@ -1,0 +1,85 @@
+/*
+  The pinned process stage. process-stage.ts sets data-process-ready only while the stage media query matches, so
+  none of this touches stacked steps. These rules are unlayered on purpose: the same elements carry Tailwind grid,
+  gap and padding utilities, and the utilities layer beats any layered rule whatever its specificity.
+*/
+[data-process-ready] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Fills the screen below the sticky header while pinned, so no page shows under a short stage. */
+  min-height: calc(100svh - var(--process-header, 0px));
+  padding-block: 1.75rem 1.25rem;
+}
+[data-process-ready] > .wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100svh - var(--process-header, 0px) - 3rem);
+  max-height: 57.5rem;
+}
+[data-process-ready] [data-process-list] {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-height: 0;
+  margin-top: 1.5rem;
+}
+[data-process-ready] [data-process-step] {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+[data-process-ready] [data-process-copy] {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 34%;
+}
+[data-process-ready] [data-process-photo] {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  left: 40%;
+}
+[data-process-ready] [data-process-photo] > * {
+  height: 100%;
+  aspect-ratio: auto;
+}
+.process-progress {
+  height: 1px;
+  margin-top: 1rem;
+  background: var(--scheme-hairline);
+}
+.process-progress span {
+  display: block;
+  height: 2px;
+  background: var(--scheme-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.process-stops {
+  display: grid;
+  grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
+}
+.process-stops button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.9375rem;
+  text-align: left;
+  color: var(--scheme-muted);
+  cursor: pointer;
+}
+.process-stops button span {
+  font-size: 0.75rem;
+}
+.process-stops button:hover,
+.process-stops button[aria-current='step'] {
+  color: var(--scheme-heading);
+}

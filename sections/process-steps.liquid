@@ -16,14 +16,15 @@
     {%- if section.settings.heading != blank -%}
       <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
     {%- endif -%}
-    <ol class="mt-10 grid gap-14 lg:gap-20" role="list">
+    <ol id="ProcessList-{{ section.id }}" class="mt-10 grid gap-14 lg:gap-20" role="list" data-process-list>
       {%- for block in section.blocks -%}
         {%- capture padded -%}0{{ forloop.index }}{%- endcapture -%}
         <li
           class="grid gap-5 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-center md:gap-10"
+          data-process-step
           {{ block.shopify_attributes }}
         >
-          <div class="overflow-hidden">
+          <div class="overflow-hidden" data-process-photo>
             {%- if block.settings.image != blank -%}
               {{
                 block.settings.image
@@ -38,7 +39,7 @@
               {{ 'lifestyle-1' | placeholder_svg_tag: 'aspect-[3/2] w-full bg-tint' }}
             {%- endif -%}
           </div>
-          <div>
+          <div data-process-copy>
             <p class="flex items-baseline gap-4 text-sm text-muted">
               <span class="font-display text-[1.75rem] text-heading" aria-hidden="true" data-step-number>
                 {{- padded | slice: -2, 2 -}}
@@ -60,6 +61,27 @@
         </li>
       {%- endfor -%}
     </ol>
+    {%- if section.blocks.size > 1 -%}
+      {%- comment -%}Shown by process-stage.ts while the section is pinned. Stacked steps need no buttons.{%- endcomment -%}
+      <nav class="process-navigation" aria-label="{{ 'process.navigation' | t }}" data-process-navigation hidden>
+        <div class="process-progress" aria-hidden="true"><span data-process-progress></span></div>
+        <div class="process-stops" style="--steps: {{ section.blocks.size }}">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign padded = '0' | append: forloop.index | slice: -2, 2
+              assign name = block.settings.heading | default: block.settings.label
+              if name == blank
+                assign name = 'process.step' | t: number: forloop.index
+              endif
+            -%}
+            <button type="button" data-process-go="{{ forloop.index0 }}" aria-controls="ProcessList-{{ section.id }}">
+              <span aria-hidden="true">{{ padded }}</span>
+              {{- name | escape -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      </nav>
+    {%- endif -%}
   </div>
 </section>
 
@@ -70,6 +92,7 @@
     { "type": "text", "id": "heading", "label": "t:sections.process_steps.heading", "default": "From field to jar" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.color_scheme", "default": "dark" }
   ],
+  "max_blocks": 6,
   "blocks": [
     {
       "type": "step",

@@ -9,6 +9,7 @@
 @import './product.css';
 @import './gallery.css';
 @import './sale-stamp.css';
+@import './process.css';
 
 /*
   Every colour reads a --scheme-* variable. snippets/theme-styles.liquid writes those for :root and for each

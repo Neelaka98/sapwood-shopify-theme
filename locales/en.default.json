@@ -85,6 +85,10 @@
     "play": "Play video",
     "pause": "Pause video"
   },
+  "process": {
+    "navigation": "Steps",
+    "step": "Step {{ number }}"
+  },
   "onboarding": {
     "featured_product": "Pick a product for this section in the theme editor.",
     "product_title": "Example product"
