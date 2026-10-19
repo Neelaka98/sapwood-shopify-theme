@@ -41,5 +41,18 @@
     </dialog>
     <p class="sr-only" aria-live="polite" data-cart-status></p>
     {% render 'theme-data' %}
+    {%- if settings.motion -%}
+      {%- comment -%}
+        Added at the end of the body so every section exists when it runs. Visitors who ask for reduced motion never
+        download GSAP.
+      {%- endcomment -%}
+      <script>
+        if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+          const motion = document.createElement('script');
+          motion.src = {{ 'motion.js' | asset_url | json }};
+          document.body.append(motion);
+        }
+      </script>
+    {%- endif -%}
   </body>
 </html>

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build:css": "tailwindcss -i src/css/theme.css -o assets/theme.css --minify",
-    "build:js": "esbuild src/ts/theme.ts --bundle --format=iife --target=es2022 --minify --outfile=assets/theme.js",
+    "build:js": "esbuild src/ts/theme.ts src/ts/motion.ts --bundle --format=iife --target=es2022 --minify --outdir=assets",
     "build": "npm run build:css && npm run build:js",
     "dev": "npm run build:css -- --watch=always & npm run build:js -- --watch=forever & shopify theme dev",
     "check": "shopify theme check --fail-level error",
@@ -19,6 +19,7 @@
     "@shopify/cli": "4.9.3",
     "@tailwindcss/cli": "4.3.3",
     "esbuild": "0.28.2",
+    "gsap": "3.15.0",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3"
   }
