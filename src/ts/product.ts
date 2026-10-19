@@ -34,10 +34,17 @@ registerSection('[data-product-root]', (root, signal) => {
     return selected;
   };
 
+  const showPanel = (variantId: string | null) => {
+    root.querySelectorAll<HTMLElement>('[data-variant-panel]').forEach((panel) => {
+      panel.hidden = panel.dataset.variantPanel !== variantId;
+    });
+  };
+
   function update() {
     const { strings } = themeData();
     const variant = findVariant(variants, selectedOptions());
     if (!variant) {
+      showPanel(null);
       if (button) button.disabled = true;
       if (label) label.textContent = strings.unavailable;
       return;
@@ -46,9 +53,7 @@ registerSection('[data-product-root]', (root, signal) => {
     if (button) button.disabled = !variant.available;
     if (label) label.textContent = variant.available ? strings.addToCart : strings.soldOut;
     renderPrice(root, variant);
-    root.querySelectorAll<HTMLElement>('[data-variant-panel]').forEach((panel) => {
-      panel.hidden = panel.dataset.variantPanel !== String(variant.id);
-    });
+    showPanel(String(variant.id));
     if (variant.mediaId !== null) showMedia(String(variant.mediaId));
     if (root.hasAttribute('data-updates-url')) {
       const url = new URL(location.href);

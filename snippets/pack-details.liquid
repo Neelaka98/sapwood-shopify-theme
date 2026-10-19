@@ -22,7 +22,9 @@
 -%}
 {%- if has_details -%}
   <div class="product-details" data-pack-details {{ block.shopify_attributes }}>
-    <h2>{{ block.settings.heading | escape }}</h2>
+    {%- if block.settings.heading != blank -%}
+      <h2>{{ block.settings.heading | escape }}</h2>
+    {%- endif -%}
     {%- if shelf_life != blank -%}
       <dl>
         <div>
