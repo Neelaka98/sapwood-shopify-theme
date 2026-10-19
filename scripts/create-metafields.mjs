@@ -3,6 +3,8 @@
 //
 //   SHOPIFY_FLAG_STORE=example.myshopify.com SHOPIFY_ADMIN_TOKEN=shpat_... node scripts/create-metafields.mjs
 
+import { fileURLToPath } from 'node:url';
+
 const API_VERSION = '2026-07';
 
 /** Created in this order, because a field can only reference a metaobject type created before it. */
@@ -170,4 +172,5 @@ async function main() {
   for (const field of METAFIELDS) await createMetafield(admin, field, ids);
 }
 
-if (import.meta.main) await main();
+// import.meta.main only exists from Node 24.2; without it an older Node would exit 0 having created nothing.
+if (process.argv[1] === fileURLToPath(import.meta.url)) await main();
