@@ -16,6 +16,9 @@ const startsInView = (el: Element) => el.getBoundingClientRect().top < innerHeig
 function revealHeadings(root: HTMLElement) {
   for (const heading of root.querySelectorAll<HTMLElement>('h2')) {
     if (startsInView(heading)) continue;
+    // SplitText wraps lines in aria-hidden masks that clip, which hides a link from screen readers and confines a
+    // stretched card link to its line.
+    if (heading.querySelector('a, button')) continue;
     let played = false;
     SplitText.create(heading, {
       type: 'lines',
