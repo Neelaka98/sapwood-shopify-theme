@@ -25,6 +25,7 @@ npm run dev
 | `npm run check` | Theme Check, failing on errors |
 | `npm test` | Unit tests in `tests/unit` |
 | `npm run typecheck` | TypeScript check of `src/ts` |
+| `node scripts/create-metafields.mjs` | Creates the metafield and metaobject definitions below on the store in `SHOPIFY_FLAG_STORE`, using an Admin API token in `SHOPIFY_ADMIN_TOKEN` with the products and metaobject definitions scopes. Safe to run again. |
 
 `assets/theme.css` and `assets/theme.js` are build output, but they are committed: Shopify's GitHub integration uploads the repo as it is. Run `npm run build` before committing changes to `src/`.
 
@@ -65,6 +66,28 @@ Defaults: heading `jost_n7` and body `jost_n4`, from Shopify's font library. The
 | FAQ | Question and answer blocks as `<details>`. |
 | Reviews | An app block slot on the product template. Renders nothing until a reviews app block is added. |
 | Contact form | Name, email, phone and message. With "Ask for business details" on, it asks for business name, email, country, volume and message instead, for wholesale inquiries. Both send to the store's sender email. |
+
+## Product data
+
+Product blocks and the product FAQ read these metafields. Each block renders nothing when its metafield is empty. `scripts/create-metafields.mjs` creates every definition below.
+
+| Owner | Key | Type | Used by |
+|---|---|---|---|
+| Product | `custom.shelf_life_months` | integer | Pack details block |
+| Product | `custom.nutrition` | metaobject reference (`nutrition_table`) | Nutrition block |
+| Product | `custom.faq` | list of metaobject references (`faq_item`) | FAQ section with "Use the product's FAQ" on |
+| Product | `custom.how_to_use` | list of metaobject references (`usage_step`) | How to use block |
+| Variant | `custom.closure` | single line text | Pack details block |
+| Variant | `custom.gross_weight_kg` | decimal | Pack details block |
+| Variant | `custom.carton` | metaobject reference (`carton`) | Pack details block |
+
+Metaobjects, all with storefront access so Liquid can read them:
+
+- `nutrition_table`: `basis` (single line text, for example "Per 100 g") and `rows` (list of `nutrition_row` references, required).
+- `nutrition_row`: `nutrient` and `amount` (single line text, both required).
+- `faq_item`: `question` (single line text) and `answer` (rich text), both required.
+- `usage_step`: `title` (single line text, required), `text` (multi-line text) and `image` (image file).
+- `carton`: `units` (integer), `gross_kg` and `net_kg` (decimal), `length_mm`, `width_mm` and `height_mm` (integers), all required.
 
 ## Tests
 
