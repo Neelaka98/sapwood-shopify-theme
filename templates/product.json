@@ -9,6 +9,8 @@
         "variant_picker": { "type": "variant_picker" },
         "buy_buttons": { "type": "buy_buttons", "settings": { "max_quantity": 20 } },
         "description": { "type": "description" },
+        "nutrition": { "type": "nutrition", "settings": { "heading": "Nutrition" } },
+        "how_to_use": { "type": "how_to_use", "settings": { "heading": "How to use it" } },
         "trade": {
           "type": "link",
           "settings": {
@@ -19,7 +21,7 @@
           }
         }
       },
-      "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "trade"],
+      "block_order": ["text", "title", "price", "variant_picker", "buy_buttons", "description", "nutrition", "how_to_use", "trade"],
       "settings": { "color_scheme": "light" }
     },
     "faq": {

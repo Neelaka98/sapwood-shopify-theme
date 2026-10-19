@@ -164,7 +164,8 @@
     padding-top: 1.5rem;
     border-top: 1px solid var(--scheme-hairline);
   }
-  .product-trade h2 {
+  .product-trade h2,
+  .product-details h2 {
     font-size: 1.125rem;
     line-height: 1.2;
     letter-spacing: -0.03em;
@@ -188,6 +189,63 @@
     font-size: 0.8125rem;
     font-weight: 600;
     text-align: center;
+  }
+  .product-details {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--scheme-hairline);
+  }
+  .product-details table,
+  .product-details dl {
+    width: 100%;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+  }
+  .product-details caption {
+    padding-bottom: 0.5rem;
+    text-align: left;
+    color: var(--scheme-muted);
+  }
+  .product-details tr,
+  .product-details dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--scheme-hairline);
+  }
+  .product-details th,
+  .product-details dt {
+    font-weight: 400;
+    text-align: left;
+    color: var(--scheme-muted);
+  }
+  .product-details td,
+  .product-details dd {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .product-usage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+    margin-top: 0.75rem;
+  }
+  .product-usage img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .product-usage h3 {
+    margin-top: 0.625rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+  .product-usage p {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--scheme-muted);
   }
 
   @media (max-width: 63.99rem) {

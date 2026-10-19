@@ -230,6 +230,16 @@
         "description": {
           "name": "Description"
         },
+        "nutrition": {
+          "name": "Nutrition",
+          "info": "Shows the product's nutrition metafield (custom.nutrition) as a table. Shows nothing when it is empty.",
+          "heading": "Heading"
+        },
+        "how_to_use": {
+          "name": "How to use",
+          "info": "Shows the product's how to use metafield (custom.how_to_use), one step per entry. Shows nothing when it is empty.",
+          "heading": "Heading"
+        },
         "link": {
           "name": "Link box",
           "heading": "Heading",

@@ -42,6 +42,50 @@
               {% render 'buy-buttons', product: product, current_variant: current_variant, form_id: form_id, block: block %}
             {%- when 'description' -%}
               <div class="rte product-description" {{ block.shopify_attributes }}>{{ product.description }}</div>
+            {%- when 'nutrition' -%}
+              {%- assign nutrition = product.metafields.custom.nutrition.value -%}
+              {%- if nutrition != blank -%}
+                <div class="product-details" data-nutrition {{ block.shopify_attributes }}>
+                  <h2 id="Nutrition-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
+                  <table aria-labelledby="Nutrition-{{ block.id }}">
+                    {%- if nutrition.basis != blank -%}
+                      <caption>{{ nutrition.basis.value | escape }}</caption>
+                    {%- endif -%}
+                    <tbody>
+                      {%- for row in nutrition.rows.value -%}
+                        <tr>
+                          <th scope="row">{{ row.nutrient.value | escape }}</th>
+                          <td>{{ row.amount.value | escape }}</td>
+                        </tr>
+                      {%- endfor -%}
+                    </tbody>
+                  </table>
+                </div>
+              {%- endif -%}
+            {%- when 'how_to_use' -%}
+              {%- assign usage_steps = product.metafields.custom.how_to_use.value -%}
+              {%- if usage_steps != blank -%}
+                <div class="product-details" data-how-to-use {{ block.shopify_attributes }}>
+                  <h2>{{ block.settings.heading | escape }}</h2>
+                  <ol class="product-usage" role="list">
+                    {%- for usage_step in usage_steps -%}
+                      <li>
+                        {%- if usage_step.image != blank -%}
+                          {{
+                            usage_step.image.value
+                            | image_url: width: 480
+                            | image_tag: widths: '240, 360, 480', sizes: '(min-width: 64rem) 18vw, 45vw', loading: 'lazy'
+                          }}
+                        {%- endif -%}
+                        <h3>{{ usage_step.title.value | escape }}</h3>
+                        {%- if usage_step.text != blank -%}
+                          <p>{{ usage_step.text.value | escape | newline_to_br }}</p>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ol>
+                </div>
+              {%- endif -%}
             {%- when 'link' -%}
               <div class="product-trade" {{ block.shopify_attributes }}>
                 <div>
@@ -91,6 +135,24 @@
       ]
     },
     { "type": "description", "name": "t:sections.main_product.blocks.description.name", "limit": 1 },
+    {
+      "type": "nutrition",
+      "name": "t:sections.main_product.blocks.nutrition.name",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "t:sections.main_product.blocks.nutrition.info" },
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.nutrition.heading", "default": "Nutrition" }
+      ]
+    },
+    {
+      "type": "how_to_use",
+      "name": "t:sections.main_product.blocks.how_to_use.name",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "t:sections.main_product.blocks.how_to_use.info" },
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.how_to_use.heading", "default": "How to use it" }
+      ]
+    },
     {
       "type": "link",
       "name": "t:sections.main_product.blocks.link.name",
