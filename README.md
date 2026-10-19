@@ -20,7 +20,7 @@ npm run dev
 
 | Script | What it does |
 |---|---|
-| `npm run build` | Compiles `src/css/theme.css` to `assets/theme.css` and `src/ts/theme.ts` to `assets/theme.js` |
+| `npm run build` | Compiles `src/css/theme.css` to `assets/theme.css`, and `src/ts/theme.ts` and `src/ts/motion.ts` to `assets/theme.js` and `assets/motion.js` |
 | `npm run dev` | Build watchers plus `shopify theme dev` |
 | `npm run check` | Theme Check, failing on errors |
 | `npm test` | Unit tests in `tests/unit` |
@@ -57,15 +57,22 @@ Defaults: heading `jost_n7` and body `jost_n4`, from Shopify's font library. The
 | Hero | The first section on a page renders its heading as the page's `h1`, and loads its image eagerly. A Shopify video replaces the image, plays muted and has a pause button; it stays paused for visitors who ask for reduced motion. |
 | Image with text | Image left or right of a heading, rich text and a link. |
 | Origin map | Upload a map image and set the pin in percent. Screen readers skip the pin, so describe the place in the image's alt text. The pin label sits right of the pin, and moves to its left when the pin is more than 60 percent across. |
-| Process steps | One block per step, stacked. |
+| Process steps | One block per step, up to 6. From 1024 px wide and 700 px tall, with motion on, the section pins and steps through the blocks as the page scrolls, with a progress line and a button per step. Selecting a step block in the editor shows that step. Phones, short screens and reduced motion get the steps stacked. |
 | Featured product | Uses the product page's price, variant picker and add to cart. Does not change the page address when a variant is picked. |
 | Product grid | Collection, 2 to 6 products, and whether card images show whole or fill the card. |
 | Certifications | Logo, name, text and link per block. Logos are decorative because the name is beside them. |
 | Trust strip | Up to 6 short text blocks in one row. |
 | Video | Shopify video with native controls, or a YouTube or Vimeo link behind a cover image. The player only loads when the visitor presses play, and without JavaScript the cover links to the video's own site. |
-| FAQ | Question and answer blocks as `<details>`. |
+| FAQ | Question and answer blocks as `<details>`. With "Use the product's FAQ" on, product pages show the product's `custom.faq` entries instead, and nothing when it has none. The product template has this section with the setting on. |
 | Reviews | An app block slot on the product template. Renders nothing until a reviews app block is added. |
+| Product | Blocks for title, price, variant picker, quantity and add to cart, description and a link box, plus nutrition, pack details and how to use, which read the metafields under Product data and show nothing when they are empty. Pack details follow the selected variant. |
 | Contact form | Name, email, phone and message. With "Ask for business details" on, it asks for business name, email, country, volume and message instead, for wholesale inquiries. Both send to the store's sender email. |
+
+## Motion
+
+With Theme settings > Motion on, `layout/theme.liquid` loads `assets/motion.js` (GSAP 3.15.0 with ScrollTrigger and SplitText) at the end of the page. Visitors who ask for reduced motion never download it, and turning reduced motion on with the page open undoes it. Section headings rise in line by line, product grid cards rise in one after another, and the process section pins on wide screens. Anything already on screen when the script runs is left as it is, so nothing flashes.
+
+Add `data-reveal-group` to a list to have its items rise in the same way.
 
 ## Product data
 
