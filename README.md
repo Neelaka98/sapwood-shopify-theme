@@ -65,12 +65,12 @@ Defaults: heading `jost_n7` and body `jost_n4`, from Shopify's font library. The
 | Video | Shopify video with native controls, or a YouTube or Vimeo link behind a cover image. The player only loads when the visitor presses play, and without JavaScript the cover links to the video's own site. |
 | FAQ | Question and answer blocks as `<details>`. With "Use the product's FAQ" on, product pages show the product's `custom.faq` entries instead, and nothing when it has none. The product template has this section with the setting on. |
 | Reviews | An app block slot on the product template. Renders nothing until a reviews app block is added. |
-| Product | Blocks for title, price, variant picker, quantity and add to cart, description and a link box, plus nutrition, pack details and how to use, which read the metafields under Product data and show nothing when they are empty. Pack details follow the selected variant. |
+| Product | Blocks for title, price, variant picker, quantity and add to cart, description, a text line, a link box and app blocks, plus nutrition, pack details and how to use, which read the metafields under Product data and show nothing when they are empty. Pack details follow the selected variant. |
 | Contact form | Name, email, phone and message. With "Ask for business details" on, it asks for business name, email, country, volume and message instead, for wholesale inquiries. Both send to the store's sender email. |
 
 ## Motion
 
-With Theme settings > Motion on, `layout/theme.liquid` loads `assets/motion.js` (GSAP 3.15.0 with ScrollTrigger and SplitText) at the end of the page. Visitors who ask for reduced motion never download it, and turning reduced motion on with the page open undoes it. Section headings rise in line by line, product grid cards rise in one after another, and the process section pins on wide screens. Anything already on screen when the script runs is left as it is, so nothing flashes.
+With Theme settings > Motion on, `layout/theme.liquid` loads `assets/motion.js` (GSAP 3.15.0 with ScrollTrigger and SplitText) at the end of the page. Visitors who ask for reduced motion never download it, and turning reduced motion on with the page open undoes it. Section headings and product block headings such as Nutrition rise in line by line, but headings that contain a link, such as product card titles, do not. Product grid cards rise in one after another, and the process section pins on wide screens. Anything already on screen when the script runs is left as it is, so nothing flashes.
 
 Add `data-reveal-group` to a list to have its items rise in the same way.
 
