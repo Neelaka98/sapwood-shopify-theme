@@ -1,6 +1,7 @@
 src/**
 tests/**
 docs/**
+demo/**
 node_modules/**
 package.json
 package-lock.json
