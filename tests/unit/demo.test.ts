@@ -37,7 +37,7 @@ const NOT_ALLOWED = [
   /\blow[ -]?GI\b/i,
   /pure natural/i,
   /raala/i,
-  /—/,
+  /\u2014/,
   /\bSay (what|how)\b/,
   /\bTell customers\b/,
   /\bName the place\b/,
