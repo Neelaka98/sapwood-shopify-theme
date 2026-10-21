@@ -43,7 +43,8 @@ function revealHeadings(root: HTMLElement) {
   }
 }
 
-function revealGroups(root: HTMLElement) {
+function revealGroups(root: HTMLElement): () => void {
+  const listeners = new AbortController();
   for (const group of root.querySelectorAll<HTMLElement>('[data-reveal-group]')) {
     const items = [...group.children].filter((item) => !startsInView(item)) as HTMLElement[];
     if (!items.length) continue;
@@ -54,7 +55,18 @@ function revealGroups(root: HTMLElement) {
       once: true,
       onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.06 }),
     });
+    // Tabbing can scroll a card only as far as the bottom of the screen, under the trigger line, where it would sit
+    // focused but invisible.
+    group.addEventListener(
+      'focusin',
+      (event) => {
+        const item = items.find((candidate) => candidate.contains(event.target as Node));
+        if (item) gsap.to(item, { opacity: 1, y: 0, duration: 0.3, ease: EASE, overwrite: true });
+      },
+      { signal: listeners.signal },
+    );
   }
+  return () => listeners.abort();
 }
 
 /**
@@ -66,7 +78,7 @@ registerSection('main .shopify-section > *', (root, signal) => {
   const mm = gsap.matchMedia();
   mm.add(MOTION, () => {
     revealHeadings(root);
-    revealGroups(root);
+    return revealGroups(root);
   });
   if (root.matches('[data-process]')) mm.add(PROCESS_STAGE, () => runStage(root));
   signal.addEventListener('abort', () => mm.revert());
